@@ -1,0 +1,99 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+footer {
+    background-color: #F8F8F8;
+}
+
+button:hover {
+    background-color: greenyellow;
+}
+
+button {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid silver;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: Transparent;  // #F8
+}
+
+.button {
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+a.button {
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    text-decoration: none;
+    background-color: whitesmoke;
+    // margin: 1px;
+    padding: 1px 2px;
+}
+
+button > img {
+    margin: 0;
+}
+
+img.svg {
+    padding: 3px 5px;
+    width: 16px;
+}
+
+img.svg32 {
+    width: 32px;
+}
+
+table.thick {
+    border-collapse: collapse;
+}
+
+table.thick th, td {
+    border: 1px solid grey;
+    padding: 0 0.2em;
+}
+
+td {
+    min-width: 0;
+}
+
+td.trunc {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+td.mini {
+    width: 1px;
+    white-space: nowrap;
+}
+
+td.right {
+    text-align: right;
+}
+
+a > img {
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+a:hover > img {
+    background-color: greenyellow;
+}
+
+.mono {
+    font-family: monospace;
+}

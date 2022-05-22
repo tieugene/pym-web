@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} TODO {% endblock %}
+{% block head %}
+{% endblock %}
+{% block body %}
+<h1> TODO </h1>
+    <table>
+        <tr>
+            <td> <!-- TODO: fieldset -->
+                <fieldset>
+                    <legend> Lists </legend>
+                    <input type="checkbox"> ti.Cloud <br>
+                    <input type="checkbox"> ti.Fedora <br>
+                    <input type="checkbox"> ti.Job <br>
+                </fieldset>
+                <fieldset>
+                    <legend> Sort </legend>
+                    <input type="radio" name="sort" id="sort1"> <label for="sort1"> Sort 1 </label> <br>
+                    <input type="radio" name="sort" id="sort2"> <label for="sort2"> Sort 2 </label> <br>
+                    <input type="radio" name="sort" id="sort3"> <label for="sort3"> Sort 3 </label> <br>
+                </fieldset>
+                <fieldset>
+                    <legend> Filter </legend>
+                    <input type="radio" name="filt" id="filt1"> <label for="filt1"> Filt 1 </label> <br>
+                    <input type="radio" name="filt" id="filt2"> <label for="filt2"> Filt 2 </label> <br>
+                    <input type="radio" name="filt" id="filt3"> <label for="filt3"> Filt 3 </label> <br>
+                </fieldset>
+            </td>
+            <td>
+                <table>
+                    <caption> Tasks list </caption>
+                </table>
+            </td>
+            <td> Task Details (3 tabs) </td>
+        </tr>
+    </table>
+{% endblock %}

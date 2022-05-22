@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8"/>
+	<title>PYM-Web: {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
+    {%  block head %}{% endblock %}
+</head>
+<body>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<ul>
+		{% for message in messages %}
+			<li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+		{% endif %}
+	{% endwith %}
+    <p>
+        <a href="{{ url_for('index') }}">
+            <img class="svg button" alt="Home" src="{{ url_for('static', filename='svg/home.svg') }}"/>
+        </a>
+        <a href="{{ url_for('todo') }}">
+            <img class="svg button" alt="TODO" src="{{ url_for('static', filename='svg/tasks.svg') }}"/>
+        </a>
+        <a href="{{ url_for('contacts') }}">
+            <img class="svg button" alt="Contacts" src="{{ url_for('static', filename='svg/address-book-o.svg') }}"/>
+        </a>
+        <a href="{{ url_for('info') }}">
+            <img class="svg button" alt="Info" src="{{ url_for('static', filename='svg/info.svg') }}"/>
+        </a>
+    </p>
+    {% block body %}{% endblock %}
+</body>
+</html>

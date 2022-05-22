@@ -1,2 +1,2 @@
-# pym-core
-Python-based Personal Information Manager (core)
+# pym-web
+Python-based Personal Information Manager (web UI)
