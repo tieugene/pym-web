@@ -13,7 +13,10 @@
                         <a href="{{ url_for('todo_store_add') }}">&oplus;</a>
                     </legend>
                     {% for i in range(stores.size()) %}
-                        <input type="checkbox"> {{ stores.item_get(i).name }} <br>
+                        <input type="checkbox">
+                        {{ stores.item_get(i).name }}
+                        <a href="{{ url_for('todo_store_del', store=i) }}">&ominus;</a>
+                        <br>
                     {% endfor %}
                     <input type="checkbox" id="myid"> <label for="myid"> Test </label> <br>
                 </fieldset>

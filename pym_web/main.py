@@ -43,9 +43,18 @@ def todo_store_add():
     # Sample: ti.Cloud - /Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Cloud
     form = forms.StoreForm()
     if form.validate_on_submit():
-        todo_store_model.item_add(Store(name=form.name.data, dpath=form.path.data, active=True))
+        todo_store_model.item_add(Store(
+            name=form.name.data,
+            dpath=form.path.data,
+            active=form.active.data))
         return redirect(url_for('todo_board'))
     return render_template('store_form.html', form=form)
+
+
+@app.route('/todo/del/<int:store>/', methods=['GET'])
+def todo_store_del(store: int):
+    todo_store_model.item_del(store)
+    return redirect(url_for('todo_board'))
 
 
 if __name__ == '__main__':

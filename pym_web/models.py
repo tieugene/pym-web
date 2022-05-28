@@ -42,6 +42,7 @@ class StoreModel(object):
 
     def item_del(self, i: int):
         self._data.store_del(i)
+        self.save_self()
 
     def load_self(self):
         """Load _data from settings"""
