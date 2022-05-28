@@ -8,10 +8,14 @@
         <tr>
             <td> <!-- TODO: fieldset -->
                 <fieldset>
-                    <legend> Lists </legend>
-                    <input type="checkbox"> ti.Cloud <br>
-                    <input type="checkbox"> ti.Fedora <br>
-                    <input type="checkbox"> ti.Job <br>
+                    <legend>
+                        Stores
+                        <a href="{{ url_for('todo_store_add') }}">&oplus;</a>
+                    </legend>
+                    {% for i in range(stores.size()) %}
+                        <input type="checkbox"> {{ stores.item_get(i).name }} <br>
+                    {% endfor %}
+                    <input type="checkbox" id="myid"> <label for="myid"> Test </label> <br>
                 </fieldset>
                 <fieldset>
                     <legend> Sort </legend>

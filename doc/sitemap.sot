@@ -1,0 +1,21 @@
+digraph pym_web {
+  rankdir = LR;
+  subgraph cluster_0 {
+      store_add;
+      store_del;
+      store_upd;
+      label = "Store";
+  }
+  subgraph cluster_1 {
+      item_add;
+      item_del;
+      item_upd;
+      label = "Entry";
+  }
+  index -> {todo_board, contacts};
+  todo_board -> {store_add, store_del, store_upd, store_switch};
+  todo_board -> sort_switch;
+  todo_board -> filter_switch;
+  todo_board -> todo_settings;
+  todo_board -> {item_add, item_del, item_upd};
+}

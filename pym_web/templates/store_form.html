@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %} TODO Add {% endblock %}
+{% block head %}
+{% endblock %}
+{% block body %}
+    <form action="" method="post" novalidate="">
+        {{ form.csrf_token() }}
+		<table>
+        <caption> Add new Store </caption>
+        {% for field in form if field.name != "csrf_token" %}
+            <tr>
+            <th>{{ field.label() }}</th>
+            <td style="border: none;">
+                <p>{{ field }}</p>
+                {% for error in field.errors %}
+                    {{ error }}<br/>
+                {% endfor %}
+            </td>
+            </tr>
+		{% endfor %}
+        </table>
+        <p><input id="submit" name="submit" type="submit" value="Go"></p>
+    </form>
+{% endblock %}
