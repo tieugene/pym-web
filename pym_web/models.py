@@ -1,5 +1,7 @@
 """Model for ToDo entries"""
-from pym_core.base.data import Store, StoreList, EntryList  # Entry
+from typing import Iterator
+
+from pym_core.base.data import Store, StoreList, Entry, EntryList
 # from pym_core.todo import enums as core_enums
 from pym_core.todo.data import TodoStore, store_list, entry_list  # TodoVObj
 import enums
@@ -9,6 +11,20 @@ from settings import Cfg
 # Base
 class EntryModel(object):
     _data: EntryList
+
+    def size(self) -> int:
+        return self._data.size()
+
+    def item_get(self, i: int) -> Entry:  # R
+        return self._data.entry_get(i)
+
+
+class EntryProxyModel(object):
+    """Sort/filter proxy model"""
+    _entry_model: EntryModel
+
+    def __init__(self, entries: EntryModel):
+        self._entry_model = entries
 
 
 class StoreModel(object):
@@ -29,6 +45,9 @@ class StoreModel(object):
 
     def __init__(self, entries: EntryModel):
         self._entry_model = entries
+
+    def items(self) -> Iterator[Store]:
+        return self._data.items()
 
     def size(self) -> int:
         return self._data.size()
@@ -65,6 +84,18 @@ class TodoEntryModel(EntryModel):
     def __init__(self):
         self._data = entry_list
 
+    def items(self) -> Iterator[Entry]:
+        return self._data.items()
+
+
+class TodoEntryProxyModel(EntryProxyModel):
+
+    def __init__(self, entries: TodoEntryModel):
+        super().__init__(entries)
+
+    def setSourceModel(self, m):
+        ...
+
 
 class TodoStoreModel(StoreModel):
     item_cls = TodoStore
@@ -77,3 +108,4 @@ class TodoStoreModel(StoreModel):
 
 todo_entry_model = TodoEntryModel()
 todo_store_model = TodoStoreModel(todo_entry_model)
+todo_proxy_model = TodoEntryProxyModel(todo_entry_model)

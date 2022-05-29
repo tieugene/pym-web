@@ -12,10 +12,10 @@
                         Stores
                         <a href="{{ url_for('todo_store_add') }}">&oplus;</a>
                     </legend>
-                    {% for i in range(stores.size()) %}
+                    {% for store in stores.items() %}
                         <input type="checkbox">
-                        {{ stores.item_get(i).name }}
-                        <a href="{{ url_for('todo_store_del', store=i) }}">&ominus;</a>
+                        {{ store.name }}
+                        <a href="{{ url_for('todo_store_del', store=loop.index0) }}">&ominus;</a>
                         <br>
                     {% endfor %}
                     <input type="checkbox" id="myid"> <label for="myid"> Test </label> <br>
@@ -36,6 +36,11 @@
             <td>
                 <table>
                     <caption> Tasks list </caption>
+                    {% for entry in entries.items() %}
+                        <tr>
+                            <td>{{ entry.vobj.get_Summary() }}</td>
+                        </tr>
+                    {% endfor %}
                 </table>
             </td>
             <td> Task Details (3 tabs) </td>
