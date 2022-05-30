@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% block title %} TODO {% endblock %}
 {% block head %}
+    <style>
+        input[type="radio"][name="entry"]:checked + label {
+        border: 1px solid red;
+        background-color: yellow;
+    }
+    </style>
+    <script>
+    function loadEntryDetails() {  // powered by https://www.delftstack.com/howto/javascript/load-html-file-javascript/
+        v = document.querySelector('input[name="entry"]:checked').value;
+        fetch("{{ url_for('todo_entry_detail') }}?id=" + v)
+        .then(response=> response.text())
+        .then(text=> document.getElementById('details').innerHTML = text);
+    }
+    </script>
 {% endblock %}
 {% block body %}
 <h1> TODO </h1>
@@ -52,19 +66,24 @@
                         <th>Summary</th>
                     </tr>
                     </thead>
+                    <tbody>
                     {% for entry in entries.items() %}
                         <tr> <!-- TODO: prio, status, %, due, summary -->
                             <td>{{ entry.vobj.get_Priority() }}</td>
                             <td>{{ entry.vobj.get_Status() }}</td>
                             <td>{{ entry.vobj.get_Progress() }}</td>
                             <td>{{ entry.vobj.get_Due() }}</td>
-                            <td>{{ entry.vobj.get_Summary() }}</td>
+                            <td>
+                                <input type="radio" name="entry" id="entry-{{ loop.index0 }}" value="{{ entry.id }}" onchange="loadEntryDetails();">
+                                <label for="entry-{{ loop.index0 }}"> {{ entry.vobj.get_Summary() }} </label>
+                            </td>
                         </tr>
                     {% endfor %}
+                    </tbody>
                     <caption> Tasks list (loop.counter0) </caption>
                 </table>
             </td>
-            <td style="vertical-align: top"> <!-- right pane -->
+            <td style="vertical-align: top" id="details"> <!-- right pane -->
                 Task Details (3 tabs)
             </td>
         </tr>
