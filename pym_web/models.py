@@ -1,11 +1,18 @@
 """Model for ToDo entries"""
-from typing import Iterator
-
+# 1. std
+from typing import Iterator, Callable
+import datetime
+# 3. locla
 from pym_core.base.data import Store, StoreList, Entry, EntryList
 # from pym_core.todo import enums as core_enums
 from pym_core.todo.data import TodoStore, store_list, entry_list  # TodoVObj
+from pym_core.todo import enums as core_enums
 import enums
 from settings import Cfg
+
+_e_closed = {core_enums.EStatus.Completed, core_enums.EStatus.Cancelled}
+_today = datetime.date.today()
+_tomorrow = _today + datetime.timedelta(days=1)
 
 
 # Base
@@ -25,17 +32,30 @@ class EntryModel(object):
 class EntryProxyModel(object):
     """Sort/filter proxy model"""
     _entry_model: EntryModel
+    _filter_cb: Callable
 
     def __init__(self, entries: EntryModel):
         self._entry_model = entries
+        self._filter_cb = self._filt_all
 
     def setSourceModel(self, m):
         ...
 
+    def setFilterCB(self, cb: Callable = None):
+        """Set filter callback
+        Callback = f(Entry) -> bool (True == accept)
+        """
+        self._filter_cb = cb
+
+    @staticmethod
+    def _filt_all(_: Entry) -> bool:
+        return True
+
     def items(self) -> Iterator[Entry]:
         for entry in self._entry_model.items():
             if entry.store.active:
-                yield entry
+                if not self._filter_cb or self._filter_cb(entry):
+                    yield entry
 
 
 class StoreModel(object):
@@ -100,6 +120,44 @@ class TodoEntryProxyModel(EntryProxyModel):
 
     def __init__(self, entries: TodoEntryModel):
         super().__init__(entries)
+
+    def switchFilter(self, fn: int):
+        """Switch filter
+        :param fn: filter num (0+)
+        """
+        self.setFilterCB((
+                             self._filt_all,
+                             self.__filt_closed,
+                             self.__filt_opened,
+                             self.__filt_today,
+                             self.__filt_tomorrow
+                         )[fn])
+
+    @staticmethod
+    def __filt_closed(entry: Entry) -> bool:
+        return entry.vobj.get_Status() in _e_closed
+
+    @staticmethod
+    def __filt_opened(entry: Entry) -> bool:
+        return entry.vobj.get_Status() not in _e_closed
+
+    @staticmethod
+    def __filt_today(entry: Entry) -> bool:
+        vobj = entry.vobj
+        due = vobj.get_Due_as_date()
+        return\
+            (vobj.get_Status() not in _e_closed)\
+            and (due is not None)\
+            and (due <= _today)
+
+    @staticmethod
+    def __filt_tomorrow(entry: Entry) -> bool:
+        vobj = entry.vobj
+        due = vobj.get_Due_as_date()
+        return\
+            (vobj.get_Status() not in _e_closed)\
+            and (due is not None)\
+            and (due == _tomorrow)
 
 
 class TodoStoreModel(StoreModel):

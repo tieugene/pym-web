@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% block title %} TODO {% endblock %}
 {% block head %}
-    <script>
-        function doalert(checkboxElem) {
-            if (checkboxElem.checked) {
-                alert ("hi");
-            } else {
-                alert ("bye");
-            }
-        }
-        function send_parent_form() {
-        }
-    </script>
 {% endblock %}
 {% block body %}
 <h1> TODO </h1>
@@ -25,8 +14,8 @@
                     </legend>
                     <form action="{{ url_for('todo_store_sel') }}" method="post" novalidate="">
                     {% for store in stores.items() %}
-                        <input type="checkbox" name="store" id="store{{ loop.index0 }}" value="{{ loop.index0 }}" onchange="submit();" {% if store.active %} checked {% endif %}>
-                        <label for="store{{ loop.index0 }}"> {{ store.name }} </label>
+                        <input type="checkbox" name="store" id="store-{{ loop.index0 }}" value="{{ loop.index0 }}" onchange="submit();" {% if store.active %} checked {% endif %}>
+                        <label for="store-{{ loop.index0 }}"> {{ store.name }} </label>
                         <a href="{{ url_for('todo_store_del', store=loop.index0) }}">&ominus;</a>
                         <br>
                     {% endfor %}
@@ -34,32 +23,53 @@
                 </fieldset>
                 <fieldset>
                     <legend> Sort </legend>
-                    <input type="radio" name="sort" id="sort1"> <label for="sort1"> As is </label> <br>
-                    <input type="radio" name="sort" id="sort2"> <label for="sort2"> Name </label> <br>
-                    <input type="radio" name="sort" id="sort3"> <label for="sort3"> !&rarr;Due&rarr;Name </label> <br>
+                    <form action="{{ url_for('todo_set_sort') }}" method="post" novalidate="">
+                    <!-- id="fname-value", type="radio", name="fname", value="int" [checked] -->
+                    <input type="radio" name="sort" id="sort-0" value="0" onchange="submit();"> <label for="sort-0"> As is </label> <br>
+                    <input type="radio" name="sort" id="sort-1" value="1" onchange="submit();"> <label for="sort-1"> Name </label> <br>
+                    <input type="radio" name="sort" id="sort-2" value="2" onchange="submit();"> <label for="sort-2"> !&rarr;Due&rarr;Name </label> <br>
+                    </form>
                 </fieldset>
                 <fieldset>
                     <legend> Filter </legend>
-                    <input type="radio" name="filt" id="filt1"> <label for="filt1"> All </label> <br>
-                    <input type="radio" name="filt" id="filt2"> <label for="filt2"> Clesed </label> <br>
-                    <input type="radio" name="filt" id="filt3"> <label for="filt3"> Opened </label> <br>
-                    <input type="radio" name="filt" id="filt4"> <label for="filt4"> Today </label> <br>
-                    <input type="radio" name="filt" id="filt5"> <label for="filt5"> Tomorrow </label> <br>
+                    <form action="{{ url_for('todo_set_filt') }}" method="post" novalidate="">
+                    <input type="radio" name="filt" id="filt-0" value="0" onchange="submit();"> <label for="filt-0"> All </label> <br>
+                    <input type="radio" name="filt" id="filt-1" value="1" onchange="submit();"> <label for="filt-1"> Closed </label> <br>
+                    <input type="radio" name="filt" id="filt-2" value="2" onchange="submit();"> <label for="filt-2"> Opened </label> <br>
+                    <input type="radio" name="filt" id="filt-3" value="3" onchange="submit();"> <label for="filt-3"> Today </label> <br>
+                    <input type="radio" name="filt" id="filt-4" value="4" onchange="submit();"> <label for="filt-4"> Tomorrow </label> <br>
+                    </form>
                 </fieldset>
             </td>
-            <td> <!-- mid pane -->
+            <td style="vertical-align: top"> <!-- mid pane -->
                 <table>
+                    <thead>
+                    <tr>
+                        <th>Prio</th>
+                        <th>Status</th>
+                        <th>%</th>
+                        <th>Due</th>
+                        <th>Summary</th>
+                    </tr>
+                    </thead>
                     {% for entry in entries.items() %}
-                        <tr>
+                        <tr> <!-- TODO: prio, status, %, due, summary -->
+                            <td>{{ entry.vobj.get_Priority() }}</td>
+                            <td>{{ entry.vobj.get_Status() }}</td>
+                            <td>{{ entry.vobj.get_Progress() }}</td>
+                            <td>{{ entry.vobj.get_Due() }}</td>
                             <td>{{ entry.vobj.get_Summary() }}</td>
                         </tr>
                     {% endfor %}
                     <caption> Tasks list (loop.counter0) </caption>
                 </table>
             </td>
-            <td> <!-- right pane -->
+            <td style="vertical-align: top"> <!-- right pane -->
                 Task Details (3 tabs)
             </td>
         </tr>
     </table>
+    <script>
+        document.getElementById('filt-{{ filt }}').checked = true;
+    </script>
 {% endblock %}

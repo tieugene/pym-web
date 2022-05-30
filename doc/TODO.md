@@ -2,12 +2,13 @@
 
 - […] Sitemap (dot)
 - [x] Settings
-- [ ] StoreList CR*U*DL
+- [x] StoreList CRDL
 - [x] Store on/off (separate form)
-- [ ] Sort (separate form)
 - [ ] Filter (separate form)
+- [ ] Sort (separate form) (note ...filtered)
 
 ## Settings:
+- store: U
 - json
 - stores
 - col2show: set[str]

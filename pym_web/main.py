@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect, url_for, request
 # 3. local
+import enums
 from pym_core.base.data import Store
 from settings import Cfg
-from models import todo_store_model, todo_entry_model, todo_proxy_model
+from models import todo_store_model, todo_proxy_model
 import forms
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ def autostart():
     Cfg.setup("pym-web.json")
     todo_store_model.load_self()
     todo_store_model.load_entries()
+    todo_proxy_model.switchFilter(Cfg.get(enums.SetGroup.ToDo, 'filt') or 0)
 
 
 @app.route('/', methods=['GET'])
@@ -34,9 +36,13 @@ def contacts():
 
 @app.route('/todo/', methods=['GET'])
 def todo_board():
-    # TODO: stores, filter, sort, entry_list, entry_detail
-    #
-    return render_template('todo_board.html', stores=todo_store_model, entries=todo_proxy_model)
+    # TODO: filter, sort, entry_detail
+    filt = Cfg.get(enums.SetGroup.ToDo, 'filt') or 0
+    return render_template('todo_board.html',
+                           stores=todo_store_model,
+                           filt=filt,
+                           entries=todo_proxy_model
+                           )
 
 
 @app.route('/todo/add/', methods=['GET', 'POST'])
@@ -71,6 +77,28 @@ def todo_store_sel():
                 store.active = checked
                 todo_store_model.save_self()
                 break  # just 1 click per request
+    return redirect(url_for('todo_board'))
+
+
+@app.route('/todo/sort/', methods=['POST'])
+def todo_set_sort():
+    """Set entries sort order"""
+    if request.method == 'POST':
+        print("Sort:", request.form.get('sort'))
+        # set proxy sort
+        # save cfg
+    return redirect(url_for('todo_board'))
+
+
+@app.route('/todo/filt/', methods=['POST'])
+def todo_set_filt():
+    """Set entries filter"""
+    if request.method == 'POST':
+        # print("Filt:", request.form.get('filt'))
+        # set proxy filter
+        filt = int(request.form.get('filt'))
+        todo_proxy_model.switchFilter(filt)
+        Cfg.set(enums.SetGroup.ToDo, 'filt', filt)
     return redirect(url_for('todo_board'))
 
 
