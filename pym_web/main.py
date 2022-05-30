@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request
 # 3. local
 from pym_core.base.data import Store
 from settings import Cfg
-from models import todo_store_model, todo_entry_model
+from models import todo_store_model, todo_entry_model, todo_proxy_model
 import forms
 
 app = Flask(__name__)
@@ -36,7 +36,7 @@ def contacts():
 def todo_board():
     # TODO: stores, filter, sort, entry_list, entry_detail
     #
-    return render_template('todo_board.html', stores=todo_store_model, entries=todo_entry_model)
+    return render_template('todo_board.html', stores=todo_store_model, entries=todo_proxy_model)
 
 
 @app.route('/todo/add/', methods=['GET', 'POST'])

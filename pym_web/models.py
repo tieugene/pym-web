@@ -33,7 +33,9 @@ class EntryProxyModel(object):
         ...
 
     def items(self) -> Iterator[Entry]:
-        ...
+        for entry in self._entry_model.items():
+            if entry.store.active:
+                yield entry
 
 
 class StoreModel(object):

@@ -34,25 +34,27 @@
                 </fieldset>
                 <fieldset>
                     <legend> Sort </legend>
-                    <input type="radio" name="sort" id="sort1"> <label for="sort1"> Sort 1 </label> <br>
-                    <input type="radio" name="sort" id="sort2"> <label for="sort2"> Sort 2 </label> <br>
-                    <input type="radio" name="sort" id="sort3"> <label for="sort3"> Sort 3 </label> <br>
+                    <input type="radio" name="sort" id="sort1"> <label for="sort1"> As is </label> <br>
+                    <input type="radio" name="sort" id="sort2"> <label for="sort2"> Name </label> <br>
+                    <input type="radio" name="sort" id="sort3"> <label for="sort3"> !&rarr;Due&rarr;Name </label> <br>
                 </fieldset>
                 <fieldset>
                     <legend> Filter </legend>
-                    <input type="radio" name="filt" id="filt1"> <label for="filt1"> Filt 1 </label> <br>
-                    <input type="radio" name="filt" id="filt2"> <label for="filt2"> Filt 2 </label> <br>
-                    <input type="radio" name="filt" id="filt3"> <label for="filt3"> Filt 3 </label> <br>
+                    <input type="radio" name="filt" id="filt1"> <label for="filt1"> All </label> <br>
+                    <input type="radio" name="filt" id="filt2"> <label for="filt2"> Clesed </label> <br>
+                    <input type="radio" name="filt" id="filt3"> <label for="filt3"> Opened </label> <br>
+                    <input type="radio" name="filt" id="filt4"> <label for="filt4"> Today </label> <br>
+                    <input type="radio" name="filt" id="filt5"> <label for="filt5"> Tomorrow </label> <br>
                 </fieldset>
             </td>
             <td> <!-- mid pane -->
                 <table>
-                    <caption> Tasks list </caption>
                     {% for entry in entries.items() %}
                         <tr>
                             <td>{{ entry.vobj.get_Summary() }}</td>
                         </tr>
                     {% endfor %}
+                    <caption> Tasks list (loop.counter0) </caption>
                 </table>
             </td>
             <td> <!-- right pane -->
