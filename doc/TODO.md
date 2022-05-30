@@ -12,7 +12,15 @@
   - […] R (== **details**): radio|select | ajax
   - [ ] U
   - [ ] D
-  - […] L: display handlers (*Flask custom filter*)
+  - [x] L: display handlers (*Flask custom filter*)
+
+## Polish:
+### List:
+- prio.color
+- status.color
+- due.in_word
+- dua.color
+- summary.radio: hide
 
 ## Select entry:
 - radio -> POST -> session(entry.uid)
@@ -36,3 +44,7 @@
 - settings
 - sync (builtin)
 - git backend?
+
+prio:
+
+- 9: darkblue darr;

@@ -1,28 +1,45 @@
 # 1. std
 import ctypes
 # 2. 3rd
+from typing import Optional
+
 from flask import Flask, render_template, redirect, url_for, request
 # 3. local
 from pym_core.base.data import Store
 from pym_core.todo.data import TodoEntry
+from pym_core.todo import enums as core_enums
 from settings import Cfg
 from models import todo_store_model, todo_proxy_model
 import enums
 import forms
 
+PRIO_CHAR = ' !↑↑↑~↓↓↓⥥'
+STATUS_CHAR = {
+    core_enums.EStatus.NeedsAction: '?',
+    core_enums.EStatus.InProcess: '…',
+    core_enums.EStatus.Completed: '✓',
+    core_enums.EStatus.Cancelled: '✗'
+}
+
 app = Flask(__name__)  # type=flask.app.Flask
 app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 
 
-# template filters
-@app.template_filter()
-def prio(n):
-    ...
+@app.context_processor
+def utility_processor():
+    def paint_prio(prio: Optional[int]) -> str:
+        """:todo: colors: red,or,or,or,green,lb,lb,lb,b"""
+        if prio:
+            return PRIO_CHAR[prio]
+        return ''
 
+    def paint_status(status: Optional[core_enums.EStatus]) -> str:
+        """:todo: colors: red,or,or,or,green,lb,lb,lb,b"""
+        if status:
+            return STATUS_CHAR[status.value]
+        return ''
 
-@app.template_filter()
-def status(n):
-    ...
+    return dict(paint_prio=paint_prio, paint_status=paint_status)
 
 
 # go
