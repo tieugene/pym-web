@@ -1,24 +1,36 @@
 {% extends "base.html" %}
 {% block title %} TODO {% endblock %}
 {% block head %}
+    <script>
+        function doalert(checkboxElem) {
+            if (checkboxElem.checked) {
+                alert ("hi");
+            } else {
+                alert ("bye");
+            }
+        }
+        function send_parent_form() {
+        }
+    </script>
 {% endblock %}
 {% block body %}
 <h1> TODO </h1>
     <table>
         <tr>
-            <td> <!-- TODO: fieldset -->
+            <td style="vertical-align: top"> <!-- Left pane -->
                 <fieldset>
                     <legend>
                         Stores
                         <a href="{{ url_for('todo_store_add') }}">&oplus;</a>
                     </legend>
+                    <form action="{{ url_for('todo_store_sel') }}" method="post" novalidate="">
                     {% for store in stores.items() %}
-                        <input type="checkbox">
-                        {{ store.name }}
+                        <input type="checkbox" name="store" id="store{{ loop.index0 }}" value="{{ loop.index0 }}" onchange="submit();" {% if store.active %} checked {% endif %}>
+                        <label for="store{{ loop.index0 }}"> {{ store.name }} </label>
                         <a href="{{ url_for('todo_store_del', store=loop.index0) }}">&ominus;</a>
                         <br>
                     {% endfor %}
-                    <input type="checkbox" id="myid"> <label for="myid"> Test </label> <br>
+                    </form>
                 </fieldset>
                 <fieldset>
                     <legend> Sort </legend>
@@ -33,7 +45,7 @@
                     <input type="radio" name="filt" id="filt3"> <label for="filt3"> Filt 3 </label> <br>
                 </fieldset>
             </td>
-            <td>
+            <td> <!-- mid pane -->
                 <table>
                     <caption> Tasks list </caption>
                     {% for entry in entries.items() %}
@@ -43,7 +55,9 @@
                     {% endfor %}
                 </table>
             </td>
-            <td> Task Details (3 tabs) </td>
+            <td> <!-- right pane -->
+                Task Details (3 tabs)
+            </td>
         </tr>
     </table>
 {% endblock %}

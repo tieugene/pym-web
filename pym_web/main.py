@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 # 3. local
 from pym_core.base.data import Store
 from settings import Cfg
@@ -55,6 +55,22 @@ def todo_store_add():
 @app.route('/todo/del/<int:store>/', methods=['GET'])
 def todo_store_del(store: int):
     todo_store_model.item_del(store)
+    return redirect(url_for('todo_board'))
+
+
+@app.route('/todo/sel/', methods=['POST'])
+def todo_store_sel():
+    """Switch store on/off"""
+    if request.method == 'POST':
+        # getlist(): list of checked checkboxes value:str
+        checked_set = set([int(i) for i in request.form.getlist('store')])
+        print("Checked:", checked_set)
+        for i, store in enumerate(todo_store_model.items()):
+            checked = i in checked_set
+            if store.active != checked:
+                store.active = checked
+                todo_store_model.save_self()
+                break  # just 1 click per request
     return redirect(url_for('todo_board'))
 
 

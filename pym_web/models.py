@@ -12,6 +12,9 @@ from settings import Cfg
 class EntryModel(object):
     _data: EntryList
 
+    def items(self) -> Iterator[Entry]:
+        return self._data.items()
+
     def size(self) -> int:
         return self._data.size()
 
@@ -25,6 +28,12 @@ class EntryProxyModel(object):
 
     def __init__(self, entries: EntryModel):
         self._entry_model = entries
+
+    def setSourceModel(self, m):
+        ...
+
+    def items(self) -> Iterator[Entry]:
+        ...
 
 
 class StoreModel(object):
@@ -84,17 +93,11 @@ class TodoEntryModel(EntryModel):
     def __init__(self):
         self._data = entry_list
 
-    def items(self) -> Iterator[Entry]:
-        return self._data.items()
-
 
 class TodoEntryProxyModel(EntryProxyModel):
 
     def __init__(self, entries: TodoEntryModel):
         super().__init__(entries)
-
-    def setSourceModel(self, m):
-        ...
 
 
 class TodoStoreModel(StoreModel):
