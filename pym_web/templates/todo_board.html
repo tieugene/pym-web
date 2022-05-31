@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %} TODO {% endblock %}
 {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabs.css') }}"/>
     <style>
         input[type="radio"][name="entry"]:checked + label {
             border: 1px solid red;
@@ -84,7 +85,7 @@
                 </table>
             </td>
             <td style="vertical-align: top" id="details"> <!-- right pane -->
-                Task Details (3 tabs)
+                details wiil be here
             </td>
         </tr>
     </table>

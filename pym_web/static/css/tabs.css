@@ -1,0 +1,27 @@
+.tabs>input[type="radio"] {
+    display: none;
+}
+.tabs>div {  /* hide content by defauilt */
+    display: none;
+    border: 1px solid silver;
+    padding: 0.5em 0.5em;
+}
+.tabs>label {
+    display: inline-block;
+    user-select: none;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid silver;
+    top: 1px;  /* cut top border */
+    position: relative;
+    padding: 0.25em 0.5em;
+}
+.tabs>input[type="radio"]:checked+label { /* checked tab */
+    background-color: #f0f0f0;
+    border-bottom: 1px solid white;
+}
+#tab-btn-1:checked~#content-1,
+#tab-btn-2:checked~#content-2,
+#tab-btn-3:checked~#content-3 {
+    display: block;
+}

@@ -1,25 +1,34 @@
-<!-- main -->
-<table>
-    <tr> <th> Store: </th> <td> {{ entry.store.name }} </td> </tr>
-    <tr> <th> Summary: </th> <td> {{ entry.vobj.get_Summary() }} </td> </tr>
-    <tr> <th> Category: </th> <td> {{ ', '.join(entry.vobj.get_Categories() or []) or '' }} </td> </tr>
-    <tr> <th> Priority: </th> <td> {{ entry.vobj.get_Priority() or '' }}</td> </tr>
-    <tr> <th> DSTart: </th> <td> {{ entry.vobj.get_DTStart() or '' }} </td> </tr>
-    <tr> <th> Due: </th> <td> {{ entry.vobj.get_Due() or '' }} </td> </tr>
-    <tr> <th> Status: </th> <td> {{ print_status(entry.vobj.get_Status()) or '' }} </td> </tr>
-    <tr> <th> Progress: </th> <td> {{ entry.vobj.get_Progress() or '' }} </td> </tr>
-    <tr> <th> Completed: </th> <td> {{ entry.vobj.get_Completed() or '' }} </td> </tr>
-    <tr> <th> Location: </th> <td> {{ entry.vobj.get_Location() or '' }} </td> </tr>
-    <tr> <th> Class: </th> <td> {{ print_class(entry.vobj.get_Class()) or '' }} </td> </tr>
-    <tr> <th> URL: </th> <td> <a href="{{ entry.vobj.get_URL() or '' }}"> {{ entry.vobj.get_URL() or '' }} </a> </td> </tr>
-</table>
-<!-- desc (textfield) -->
-    <div>
+<div class="tabs">
+    <input type="radio" name="tab-btn" id="tab-btn-1" value="" checked>
+    <label for="tab-btn-1"> Main </label>
+    <input type="radio" name="tab-btn" id="tab-btn-2" value="">
+    <label for="tab-btn-2"> Desc </label>
+    <input type="radio" name="tab-btn" id="tab-btn-3" value="">
+    <label for="tab-btn-3"> Misc </label>
+    <div id="content-1">
+        <table>
+            <tr> <th> Store: </th> <td> {{ entry.store.name }} </td> </tr>
+            <tr> <th> Summary: </th> <td> {{ entry.vobj.get_Summary() }} </td> </tr>
+            <tr> <th> Category: </th> <td> {{ ', '.join(entry.vobj.get_Categories() or []) or '' }} </td> </tr>
+            <tr> <th> Priority: </th> <td> {{ entry.vobj.get_Priority() or '' }}</td> </tr>
+            <tr> <th> DSTart: </th> <td> {{ entry.vobj.get_DTStart() or '' }} </td> </tr>
+            <tr> <th> Due: </th> <td> {{ entry.vobj.get_Due() or '' }} </td> </tr>
+            <tr> <th> Status: </th> <td> {{ print_status(entry.vobj.get_Status()) or '' }} </td> </tr>
+            <tr> <th> Progress: </th> <td> {{ entry.vobj.get_Progress() or '' }} </td> </tr>
+            <tr> <th> Completed: </th> <td> {{ entry.vobj.get_Completed() or '' }} </td> </tr>
+            <tr> <th> Location: </th> <td> {{ entry.vobj.get_Location() or '' }} </td> </tr>
+            <tr> <th> Class: </th> <td> {{ print_class(entry.vobj.get_Class()) or '' }} </td> </tr>
+            <tr> <th> URL: </th> <td> <a href="{{ entry.vobj.get_URL() or '' }}"> {{ entry.vobj.get_URL() or '' }} </a> </td> </tr>
+        </table>
+    </div>
+    <div id="content-2">
         <p> {{ br(entry.vobj.get_Description())|safe }} </p>
     </div>
-<!-- misc: created, dtstamp, modified, uuid -->
-<table>
-    <tr> <th> Created: </th> <td> {{ entry.vobj.get_Created().strftime('%y-%m-%d %H:%M:%S') }} </td> </tr>
-    <tr> <th> DTStamp: </th> <td> {{ entry.vobj.get_DTStamp().strftime('%y-%m-%d %H:%M:%S') }} </td> </tr>
-    <tr> <th> Modified: </th> <td> {{ entry.vobj.get_LastModified().strftime('%y-%m-%d %H:%M:%S') }} </td> </tr>
-</table>
+    <div id="content-3">
+        <table>
+            <tr> <th> Created:  </th> <td> {{ entry.vobj.get_Created().strftime('%y-%m-%d %H:%M:%S') }} </td> </tr>
+            <tr> <th> DTStamp:  </th> <td> {{ entry.vobj.get_DTStamp().strftime('%y-%m-%d %H:%M:%S') }} </td> </tr>
+            <tr> <th> Modified: </th> <td> {{ entry.vobj.get_LastModified().strftime('%y-%m-%d %H:%M:%S') }} </td> </tr>
+        </table>
+    </div>
+</div>

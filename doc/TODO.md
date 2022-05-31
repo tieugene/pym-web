@@ -7,8 +7,8 @@
 - [x] Filter
 - [ ] Sort *([list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)); note: after filter*
 - […] Entry:
-  - [x] L: display handlers (*Flask custom filter*)
-  - […] R: tabs
+  - [x] L
+  - [x] R
   - [ ] C
   - [ ] D
   - [ ] U
@@ -33,6 +33,7 @@
 - [ ] showDetails
 
 ## Issues:
+- TodoList: select all of row
 - iterate over entries w/ kbd
 - col2show, colorder - by names
 - select Entry - invisibnle radio or select>option
