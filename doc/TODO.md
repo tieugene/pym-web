@@ -2,17 +2,21 @@
 
 - […] Sitemap (dot)
 - [x] Settings
-- [x] StoreList CRDL
+- [x] StoreList CR*U*DL
 - [x] Store on/off
 - [x] Filter
-- [ ] Sort: find like quicksort using lessThen
-   *note: after filter*
-- [ ] Entry:
-  - [ ] C
-  - […] R (== **details**): radio|select | ajax
-  - [ ] U
-  - [ ] D
+- [ ] Sort *([list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)); note: after filter*
+- […] Entry:
   - [x] L: display handlers (*Flask custom filter*)
+  - […] R:
+     - Status
+     - Class
+     - datimes as local &times;4
+     - URL as URL
+     - tabs
+  - [ ] C
+  - [ ] D
+  - [ ] U
 
 ## Polish:
 ### List:
@@ -22,23 +26,24 @@
 - dua.color
 - summary.radio: hide
 
-## Select entry:
-- radio -> POST -> session(entry.uid)
-- radio -> AJAX
-- onclick() = function load_entry(uid) ([RTFM](https://www.delftstack.com/howto/javascript/load-html-file-javascript/))
-- note: if uid in sessionthen can hichlitelist / clean details
-
 ## Settings:
-- store: U
-- json
-- stores
-- col2show: set[str]
-- colorder: 
+- [x] store: U
+- [x] json
+- [x] stores
+- [x] filter
+- [ ] sort
+- [ ] col2show: set[str]
+- [ ] colorder: 
 
 ## Issues:
+- iterate over entries w/ kbd
 - col2show, colorder - by names
 - select Entry - invisibnle radio or select>option
 - uuid for route: https://github.com/wbolster/flask-uuid
+- find: ordered set:
+  - OrderedSet < pip ordered-set
+  - dict.fromkeys(keywords)
+  - uniq list
 
 ### pym-core:
 - settings

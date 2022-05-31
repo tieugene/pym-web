@@ -1,4 +1,25 @@
+<!-- main -->
 <table>
-    <tr> <th> UUID: </th> <td> {{ entry.vobj.get_UID() }} </td> </tr>
+    <tr> <th> Store: </th> <td> {{ entry.store.name }} </td> </tr>
     <tr> <th> Summary: </th> <td> {{ entry.vobj.get_Summary() }} </td> </tr>
+    <tr> <th> Category: </th> <td> {{ ', '.join(entry.vobj.get_Categories() or []) or '' }} </td> </tr>
+    <tr> <th> Priority: </th> <td> {{ entry.vobj.get_Priority() or '' }}</td> </tr>
+    <tr> <th> DSTart: </th> <td> {{ entry.vobj.get_DTStart() or '' }} </td> </tr>
+    <tr> <th> Due: </th> <td> {{ entry.vobj.get_Due() or '' }} </td> </tr>
+    <tr> <th> Status: </th> <td> {{ entry.vobj.get_Status() or '' }} </td> </tr>
+    <tr> <th> Progress: </th> <td> {{ entry.vobj.get_Progress() or '' }} </td> </tr>
+    <tr> <th> Completed: </th> <td> {{ entry.vobj.get_Completed() or '' }} </td> </tr>
+    <tr> <th> Location: </th> <td> {{ entry.vobj.get_Location() or '' }} </td> </tr>
+    <tr> <th> Class: </th> <td> {{ entry.vobj.get_Class() or '' }} </td> </tr>
+    <tr> <th> URL: </th> <td> {{ entry.vobj.get_URL() or '' }} </td> </tr>
+</table>
+<!-- desc (textfield) -->
+    <div>
+        <pre>{{ entry.vobj.get_Description() or '' }} </pre>
+    </div>
+<!-- misc: created, dtstamp, modified, uuid -->
+<table>
+    <tr> <th> Created: </th> <td> {{ entry.vobj.get_Created() }} </td> </tr>
+    <tr> <th> DTStamp: </th> <td> {{ entry.vobj.get_DTStamp() }} </td> </tr>
+    <tr> <th> Modified: </th> <td> {{ entry.vobj.get_LastModified() }} </td> </tr>
 </table>
