@@ -168,6 +168,11 @@ class TodoStoreModel(StoreModel):
         self._set_group = enums.SetGroup.ToDo
         self._data = store_list
 
+    def select(self):
+        """Helper for form SelectField"""
+        for i, s in enumerate(self._data.items()):
+            yield i, s.name
+
 
 todo_entry_model = TodoEntryModel()
 todo_store_model = TodoStoreModel(todo_entry_model)

@@ -7,6 +7,7 @@ from wtforms import BooleanField, StringField, URLField, SelectField, TextAreaFi
 from wtforms.validators import DataRequired
 # 3. local
 from pym_core.todo import enums as core_enums
+from models import todo_store_model
 
 CLASS_LIST = (
     (core_enums.EClass.Public.value, "Public"),
@@ -30,15 +31,17 @@ class StoreForm(FlaskForm):
 
 
 class TodoEntryForm(FlaskForm):
-    # store: select
+    store = SelectField("Class:", choices=todo_store_model.select(), coerce=int)
     summary = StringField("Summary:", validators=[DataRequired()])
     category = StringField("Category:")
     class_ = SelectField("Class:", choices=CLASS_LIST, coerce=int)  # FIXME: optional
     # prio: checkbox + ~slider~ radio
     dtstart_d = DateField("DTStart.date:")  # FIXME: optional
-    dtstart_t = TimeField("DTStart.time:")  # FIXME: optional, validate on date
+    dtstart_t = TimeField("time:")  # FIXME: optional, validate on date
+    dtstart_l = BooleanField("MSK:")
     due_d = DateField("Due.date:")  # FIXME: optional
     due_t = TimeField("Due.time:")  # FIXME: optional, validate on date
+    due_l = BooleanField("MSK:")
     status = SelectField("Class:", choices=STATUS_LIST, coerce=int)  # FIXME: optional
     progress = IntegerField("Progress")  # FIXME: optional
     completed = DateTimeField("Completed")  # FIXME: optional

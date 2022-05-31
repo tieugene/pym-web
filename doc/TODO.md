@@ -11,7 +11,7 @@
   - [x] L
   - [x] R
   - [ ] C:
-     - [ ] store
+     - [x] store
      - [ ] prio
      - [ ] optional (8)
      - [ ] time vs date (2)
