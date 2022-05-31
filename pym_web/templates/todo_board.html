@@ -3,17 +3,17 @@
 {% block head %}
     <style>
         input[type="radio"][name="entry"]:checked + label {
-        border: 1px solid red;
-        background-color: yellow;
-    }
+            border: 1px solid red;
+            background-color: yellow;
+        }
     </style>
     <script>
-    function loadEntryDetails() {  // powered by https://www.delftstack.com/howto/javascript/load-html-file-javascript/
-        v = document.querySelector('input[name="entry"]:checked').value;
-        fetch("{{ url_for('todo_entry_detail') }}?id=" + v)
-        .then(response=> response.text())
-        .then(text=> document.getElementById('details').innerHTML = text);
-    }
+        function loadEntryDetails() {  // powered by https://www.delftstack.com/howto/javascript/load-html-file-javascript/
+            v = document.querySelector('input[name="entry"]:checked').value;
+            fetch("{{ url_for('todo_entry_detail') }}?id=" + v)
+            .then(response=> response.text())
+            .then(text=> document.getElementById('details').innerHTML = text);
+        }
     </script>
 {% endblock %}
 {% block body %}
@@ -74,7 +74,7 @@
                             <td style="text-align: right"> {{ entry.vobj.get_Progress() or '' }} </td>
                             <td> {{ entry.vobj.get_Due() or '' }} </td>
                             <td>
-                                <input type="radio" name="entry" id="entry-{{ loop.index0 }}" value="{{ entry.id }}" onchange="loadEntryDetails();">
+                                <input type="radio" name="entry" id="entry-{{ loop.index0 }}" value="{{ entry.id }}" onchange="loadEntryDetails();" style="display: none">
                                 <label for="entry-{{ loop.index0 }}"> {{ entry.vobj.get_Summary() }} </label>
                             </td>
                         </tr>

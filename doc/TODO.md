@@ -8,28 +8,29 @@
 - [ ] Sort *([list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)); note: after filter*
 - […] Entry:
   - [x] L: display handlers (*Flask custom filter*)
-  - […] R:
-     - [ ] tabs
+  - […] R: tabs
   - [ ] C
   - [ ] D
   - [ ] U
 
 ## Polish:
 ### List:
-- prio.color
-- status.color
-- due.in_word
-- dua.color
-- summary.radio: hide
+- [ ] prio.color
+- [ ] status.color
+- [ ] due.in_word
+- [ ] dua.color
+- [x] summary.radio: hide *(display: none)*
 
 ## Settings:
-- [x] store: U
+- [x] store
 - [x] json
 - [x] stores
 - [x] filter
 - [ ] sort
 - [ ] col2show: set[str]
-- [ ] colorder: 
+- [ ] colorder: OrderedSet[str]
+- [ ] showLeftPane
+- [ ] showDetails
 
 ## Issues:
 - iterate over entries w/ kbd
