@@ -10,15 +10,17 @@ from pym_core.todo import enums as core_enums
 from models import todo_store_model
 
 CLASS_LIST = (
+    (0, '---'),
     (core_enums.EClass.Public.value, "Public"),
-    (core_enums.EClass.Confidential.value, "Confidential"),
-    (core_enums.EClass.Private.value, "Private")
+    (core_enums.EClass.Private.value, "Private"),
+    (core_enums.EClass.Confidential.value, "Confidential")
 )
 STATUS_LIST = (
+    (0, '---'),
     (core_enums.EStatus.NeedsAction.value, "Need action"),
     (core_enums.EStatus.InProcess.value, "In progress"),
-    (core_enums.EStatus.Cancelled.value, "Cancelled"),
-    (core_enums.EStatus.Completed.value, "Completed")
+    (core_enums.EStatus.Completed.value, "Completed"),
+    (core_enums.EStatus.Cancelled.value, "Cancelled")
 )
 PRIO_LIST = (
     ((9, "min"), (7, "low"), (5, "normal"), (3, "high"), (1, "max"))
