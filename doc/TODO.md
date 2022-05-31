@@ -2,10 +2,11 @@
 
 - […] Sitemap (dot)
 - [x] Settings
-- [x] StoreList CR*U*DL
+- [x] StoreList CRDL
 - [x] Store on/off
 - [x] Filter
-- [ ] Sort *([list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)); note: after filter*
+- [ ] Sort [^1] *note: after filter*
+- [ ] Store: U
 - […] Entry:
   - [x] L
   - [x] R
@@ -15,11 +16,10 @@
 
 ## Polish:
 ### List:
-- [ ] prio.color
-- [ ] status.color
-- [ ] due.in_word
-- [ ] dua.color
-- [x] summary.radio: hide *(display: none)*
+- [ ] list.prio.color
+- [ ] list.status.color
+- [ ] list.due.in_word
+- [ ] list.due.color
 
 ## Settings:
 - [x] store
@@ -33,11 +33,11 @@
 - [ ] showDetails
 
 ## Issues:
-- TodoList: select all of row
+- TodoList: select whole of row
 - iterate over entries w/ kbd
 - col2show, colorder - by names
 - select Entry - invisibnle radio or select>option
-- uuid for route: https://github.com/wbolster/flask-uuid
+- uuid for route [^2]
 - find: ordered set:
   - OrderedSet < pip ordered-set
   - dict.fromkeys(keywords)
@@ -48,6 +48,5 @@
 - sync (builtin)
 - git backend?
 
-prio:
-
-- 9: darkblue darr;
+[^1]: [list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)
+[^2]: https://github.com/wbolster/flask-uuid
