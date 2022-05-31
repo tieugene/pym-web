@@ -10,7 +10,11 @@
 - […] Entry:
   - [x] L
   - [x] R
-  - [ ] C
+  - [ ] C:
+     - [ ] store
+     - [ ] prio
+     - [ ] optional (8)
+     - [ ] time vs date (2)
   - [ ] D
   - [ ] U
 

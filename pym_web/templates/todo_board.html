@@ -81,7 +81,10 @@
                         </tr>
                     {% endfor %}
                     </tbody>
-                    <caption> Tasks list (loop.counter0) </caption>
+                    <caption>
+                        Tasks list (loop.counter0)
+                        <a href="{{ url_for('todo_entry_add') }}">&oplus;</a>
+                    </caption>
                 </table>
             </td>
             <td style="vertical-align: top" id="details"> <!-- right pane -->

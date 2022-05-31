@@ -168,17 +168,25 @@ def todo_set_filt():
     return redirect(url_for('todo_board'))
 
 
-@app.route('/todo/entry/view/', methods=['POST'])
-def todo_entry_view():
-    return redirect(url_for('todo_board'))
-
-
 @app.route('/todo/entry/detail/', methods=['GET'])
 def todo_entry_detail():
     """Powered by https://thewebdev.info/2022/04/10/how-to-get-object-by-id-with-python/"""
     oid = int(request.args.get('id'))
     entry: TodoEntry = ctypes.cast(oid, ctypes.py_object).value
     return render_template("todo_entry_details.html", entry=entry)
+
+
+@app.route('/todo/entry/add/', methods=['GET', 'POST'])
+def todo_entry_add():
+    form = forms.TodoEntryForm()
+    if form.validate_on_submit():
+        print("Due:", type(form.due.data), form.due.data)
+        # todo_store_model.item_add(Store(
+        #    name=form.name.data,
+        #    dpath=form.path.data,
+        #    active=form.active.data))
+        return redirect(url_for('todo_board'))
+    return render_template('todo_entry_form.html', form=form)
 
 
 if __name__ == '__main__':
