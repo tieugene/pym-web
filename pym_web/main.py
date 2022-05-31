@@ -1,8 +1,7 @@
 # 1. std
+from typing import Optional
 import ctypes
 # 2. 3rd
-from typing import Optional
-
 from flask import Flask, render_template, redirect, url_for, request
 # 3. local
 from pym_core.base.data import Store
@@ -12,15 +11,26 @@ from settings import Cfg
 from models import todo_store_model, todo_proxy_model
 import enums
 import forms
-
-PRIO_CHAR = ' !↑↑↑~↓↓↓⥥'
-STATUS_CHAR = {
+# consts
+CHAR_PRIO = ' !↑↑↑~↓↓↓⥥'
+CHAR_STATUS = {
     core_enums.EStatus.NeedsAction: '?',
     core_enums.EStatus.InProcess: '…',
     core_enums.EStatus.Completed: '✓',
     core_enums.EStatus.Cancelled: '✗'
 }
-
+STR_STATUS = {
+    core_enums.EStatus.NeedsAction: 'Need action',
+    core_enums.EStatus.InProcess: 'In progress',
+    core_enums.EStatus.Completed: 'Completed',
+    core_enums.EStatus.Cancelled: 'Cancelled'
+}
+STR_CLASS = {
+    core_enums.EClass.Public: 'Public',
+    core_enums.EClass.Confidential: 'Confidential',
+    core_enums.EClass.Private: 'Private'
+}
+# vars
 app = Flask(__name__)  # type=flask.app.Flask
 app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 
@@ -28,18 +38,35 @@ app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 @app.context_processor
 def utility_processor():
     def paint_prio(prio: Optional[int]) -> str:
-        """:todo: colors: red,or,or,or,green,lb,lb,lb,b"""
+        """Priority in list"""
         if prio:
-            return PRIO_CHAR[prio]
+            return CHAR_PRIO[prio]
         return ''
 
     def paint_status(status: Optional[core_enums.EStatus]) -> str:
-        """:todo: colors: red,or,or,or,green,lb,lb,lb,b"""
+        """Status in list"""
         if status:
-            return STATUS_CHAR[status.value]
+            return CHAR_STATUS[status.value]
         return ''
 
-    return dict(paint_prio=paint_prio, paint_status=paint_status)
+    def print_status(status: Optional[core_enums.EStatus]) -> str:
+        """Status in detail"""
+        if status:
+            return STR_STATUS[status.value]
+        return ''
+
+    def print_class(cls: Optional[core_enums.EClass]) -> str:
+        """Status in list"""
+        if cls:
+            return STR_CLASS[cls.value]
+        return ''
+
+    return dict(
+        paint_prio=paint_prio,
+        paint_status=paint_status,
+        print_status=print_status,
+        print_class=print_class
+    )
 
 
 # go
