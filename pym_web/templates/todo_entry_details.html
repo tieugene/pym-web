@@ -15,7 +15,7 @@
 </table>
 <!-- desc (textfield) -->
     <div>
-        <pre>{{ entry.vobj.get_Description() or '' }} </pre>
+        <p> {{ br(entry.vobj.get_Description())|safe }} </p>
     </div>
 <!-- misc: created, dtstamp, modified, uuid -->
 <table>

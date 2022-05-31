@@ -9,12 +9,7 @@
 - […] Entry:
   - [x] L: display handlers (*Flask custom filter*)
   - […] R:
-     - Status
-     - Class
-     - datimes as local &times;4
-     - URL as URL
-     - Desc: <br>s
-     - tabs
+     - [ ] tabs
   - [ ] C
   - [ ] D
   - [ ] U

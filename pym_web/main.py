@@ -61,11 +61,20 @@ def utility_processor():
             return STR_CLASS[cls.value]
         return ''
 
+    def br(s: Optional[str]) -> str:
+        """Split string by <br/>
+        :todo: find jinja2 built-in
+        """
+        if s:
+            return "<br/>\n".join(s.split("\n"))
+        return ''
+
     return dict(
         paint_prio=paint_prio,
         paint_status=paint_status,
         print_status=print_status,
-        print_class=print_class
+        print_class=print_class,
+        br=br
     )
 
 

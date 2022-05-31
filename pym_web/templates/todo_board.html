@@ -69,8 +69,8 @@
                     <tbody>
                     {% for entry in entries.items() %}
                         <tr> <!-- TODO: prio, status, %, due, summary -->
-                            <td style="text-align: center"> {{ paint_prio(entry.vobj.get_Priority()) or '' }} </td>
-                            <td style="text-align: center"> {{ paint_status(entry.vobj.get_Status()) or '' }} </td>
+                            <td style="text-align: center"> {{ paint_prio(entry.vobj.get_Priority())|safe or '' }} </td>
+                            <td style="text-align: center"> {{ paint_status(entry.vobj.get_Status())|safe or '' }} </td>
                             <td style="text-align: right"> {{ entry.vobj.get_Progress() or '' }} </td>
                             <td> {{ entry.vobj.get_Due() or '' }} </td>
                             <td>
