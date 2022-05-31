@@ -11,10 +11,10 @@
   - [x] L
   - [x] R
   - [ ] C:
-     - [x] store
-     - [ ] prio
-     - [ ] optional (8)
-     - [ ] time vs date (2)
+     - [ ] optional selects (class, status)
+     - [ ] prio: integer + radio (inline)
+     - [ ] date [+ time] chk (2)
+     - [ ] design: layout; highlite mandatory/empty/filled/err
   - [ ] D
   - [ ] U
 

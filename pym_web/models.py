@@ -170,8 +170,9 @@ class TodoStoreModel(StoreModel):
 
     def select(self):
         """Helper for form SelectField"""
-        for i, s in enumerate(self._data.items()):
-            yield i, s.name
+        return [(i, s.name) for i, s in enumerate(self._data.items())]  # empty on start
+        # for i, s in enumerate(self._data.items()):
+        #    yield i, s.name
 
 
 todo_entry_model = TodoEntryModel()

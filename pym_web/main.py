@@ -179,12 +179,14 @@ def todo_entry_detail():
 @app.route('/todo/entry/add/', methods=['GET', 'POST'])
 def todo_entry_add():
     form = forms.TodoEntryForm()
+    form.store.choices = todo_store_model.select()
     if form.validate_on_submit():
-        print("Due:", type(form.due.data), form.due.data)
+        # print("Due:", type(form.due.data), form.due.data)
         # todo_store_model.item_add(Store(
         #    name=form.name.data,
         #    dpath=form.path.data,
         #    active=form.active.data))
+        print("Ok")
         return redirect(url_for('todo_board'))
     return render_template('todo_entry_form.html', form=form)
 
