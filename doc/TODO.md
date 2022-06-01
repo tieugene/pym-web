@@ -10,9 +10,7 @@
 - […] Entry:
   - [x] L
   - [x] R
-  - [ ] C: fixes:
-     - [ ] date [+ time] + chk (2)
-     - [ ] layout
+  - [ ] C: layout
   - [ ] D
   - [ ] U
 

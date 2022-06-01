@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 # except ImportError:  # wtforms 3.x
 from wtforms import IntegerField, IntegerRangeField, DateField, TimeField, DateTimeLocalField
 from wtforms import BooleanField, StringField, URLField, TextAreaField, SelectField, RadioField, FormField
-from wtforms.validators import Optional, DataRequired, NumberRange
+from wtforms.validators import Optional, DataRequired, NumberRange, ValidationError
 # 3. local
 from pym_core.todo import enums as core_enums
 from models import todo_store_model
@@ -37,8 +37,12 @@ class StoreForm(FlaskForm):
 
 class DaTimeForm(FlaskForm):
     d = DateField('', validators=[Optional()])
-    t = TimeField('', validators=[Optional()])  # FIXME: validate on date
+    t = TimeField('', validators=[Optional()])
     msk = BooleanField("MSK:")
+
+    def validate_t(self, field):
+        if not self.d.data and field.data:
+            raise ValidationError("Time cannot be without date")
 
 
 class TodoEntryForm(FlaskForm):
