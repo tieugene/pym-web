@@ -2,12 +2,13 @@ from flask_wtf import FlaskForm
 # try:  # wtforms 2.x
 #    from wtforms.fields.html5 import IntegerField, DateField, TimeField, DateTimeField, DateTimeLocalField
 # except ImportError:  # wtforms 3.x
-from wtforms import IntegerField, IntegerRangeField, DateField, TimeField, DateTimeLocalField
-from wtforms import BooleanField, StringField, URLField, TextAreaField, SelectField, RadioField, FormField
+# unused: IntegerRangeField, RadioField
+from wtforms import IntegerField, DateField, TimeField, DateTimeLocalField
+from wtforms import BooleanField, StringField, URLField, TextAreaField, SelectField, FormField
 from wtforms.validators import Optional, DataRequired, NumberRange, ValidationError
 # 3. local
 from pym_core.todo import enums as core_enums
-from models import todo_store_model
+# from models import todo_store_model
 
 CLASS_LIST = (
     (0, '---'),

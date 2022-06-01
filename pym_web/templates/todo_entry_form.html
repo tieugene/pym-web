@@ -11,10 +11,18 @@
             <tr>
                 <th>{{ field.label() }}</th>
                 <td style="border: none;">
+                {% if field.type != 'FormField' %}
                     <p>{{ field }}</p>
                     {% for error in field.errors %}
                         {{ error }}<br/>
                     {% endfor %}
+                {% else %}
+                    <table><tr>
+                        <td> <p> {{ field.d }} </p> {% for error in field.d.errors %} {{ error }}<br/> {% endfor %} </td>
+                        <td> <p> {{ field.t }} </p> {% for error in field.t.errors %} {{ error }}<br/> {% endfor %} </td>
+                        <td> {{ field.msk }} </td>
+                    </tr></table>
+                {% endif %}
                 </td>
             </tr>
             {% endfor %}

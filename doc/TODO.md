@@ -10,7 +10,7 @@
 - […] Entry:
   - [x] L
   - [x] R
-  - [ ] C: layout
+  - [ ] C: save
   - [ ] D
   - [ ] U
 
