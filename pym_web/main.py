@@ -173,7 +173,7 @@ def todo_entry_detail():
     """Powered by https://thewebdev.info/2022/04/10/how-to-get-object-by-id-with-python/"""
     oid = int(request.args.get('id'))
     entry: TodoEntry = ctypes.cast(oid, ctypes.py_object).value
-    return render_template("todo_entry_details.html", entry=entry)
+    return render_template("todo_entry_details.html", entry=entry, idx=todo_entry_model.item_index(entry))
 
 
 @app.route('/todo/entry/add/', methods=['GET', 'POST'])
@@ -195,6 +195,12 @@ def todo_entry_add():
             del vobj
         return redirect(url_for('todo_board'))
     return render_template('todo_entry_form.html', form=form)
+
+
+@app.route('/todo/entry/del/<int:idx>/', methods=['GET'])
+def todo_entry_del(idx: int):
+    todo_entry_model.item_del(idx)
+    return redirect(url_for('todo_board'))
 
 
 if __name__ == '__main__':

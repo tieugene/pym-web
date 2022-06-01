@@ -5,7 +5,7 @@ import datetime
 # 3. locla
 from pym_core.base.data import Store, StoreList, Entry, EntryList
 # from pym_core.todo import enums as core_enums
-from pym_core.todo.data import TodoStore, store_list, entry_list  # TodoVObj
+from pym_core.todo.data import TodoStore, store_list, entry_list, TodoEntry  # TodoVObj
 from pym_core.todo import enums as core_enums
 import enums
 from settings import Cfg
@@ -31,6 +31,14 @@ class EntryModel(object):
     def item_add(self, item: Entry) -> bool:  # C
         """Add newly created Entry"""
         return self._data.entry_add(item)
+
+    def item_del(self, i: int) -> bool:  # D
+        """Delete Entry"""
+        return self._data.entry_del(i)
+
+    def item_index(self, entry: TodoEntry) -> int:
+        """Find order no of entry in EntryList"""
+        return self._data.entry_index(entry)
 
 
 class EntryProxyModel(object):

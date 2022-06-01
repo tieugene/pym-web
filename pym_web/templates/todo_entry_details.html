@@ -5,6 +5,8 @@
     <label for="tab-btn-2"> Desc </label>
     <input type="radio" name="tab-btn" id="tab-btn-3" value="">
     <label for="tab-btn-3"> Misc </label>
+    <a href="">{% include "img/edit.html" %} </a>
+    <a href="{{ url_for('todo_entry_del', idx=idx) }}">{% include "img/trash.html" %} </a>
     <div id="content-1">
         <table>
             <tr> <th> Store: </th> <td> {{ entry.store.name }} </td> </tr>

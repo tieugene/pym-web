@@ -11,7 +11,7 @@
   - [x] L
   - [x] R
   - [x] C
-  - [ ] D
+  - [x] D
   - [ ] U
 
 ## Polish:
@@ -25,6 +25,7 @@
 - [ ] entry:
   - [ ] prio: += range (disabled on int empty or < 1)
   - [ ] progress: += range (disabled on int empty)
+  - [ ] del: confirm ('sure?')
 
 ## Settings:
 - [x] store
