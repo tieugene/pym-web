@@ -11,6 +11,7 @@ from settings import Cfg
 from models import todo_store_model, todo_entry_model, todo_proxy_model
 import enums
 import forms
+
 # consts
 CHAR_PRIO = ' !↑↑↑~↓↓↓⥥'
 CHAR_STATUS = {
@@ -105,13 +106,13 @@ def contacts():
 
 @app.route('/todo/', methods=['GET'])
 def todo_board():
-    # TODO: filter, sort, entry_detail
-    filt = Cfg.get(enums.SetGroup.ToDo, 'filt') or 0
-    return render_template('todo_board.html',
-                           stores=todo_store_model,
-                           filt=filt,
-                           entries=todo_proxy_model
-                           )
+    return render_template(
+        'todo_board.html',
+        stores=todo_store_model,
+        filt=Cfg.get(enums.SetGroup.ToDo, 'filt') or 0,
+        sort=Cfg.get(enums.SetGroup.ToDo, 'sort') or 0,
+        entries=todo_proxy_model
+    )
 
 
 @app.route('/todo/store/add/', methods=['GET', 'POST'])
@@ -151,9 +152,9 @@ def todo_store_sel():
 @app.route('/todo/sort/', methods=['POST'])
 def todo_set_sort():
     """Set entries sort order"""
-    print("Sort:", request.form.get('sort'))
-    # set proxy sort
-    # save cfg
+    sort = int(request.form.get('sort'))
+    todo_proxy_model.switchSorter(sort)
+    Cfg.set(enums.SetGroup.ToDo, 'sort', sort)
     return redirect(url_for('todo_board'))
 
 

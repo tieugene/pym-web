@@ -1,20 +1,23 @@
 # TODO
 
-- […] Sitemap (dot)
 - [x] Settings
 - [x] StoreList CRDL
 - [x] Store on/off
 - [x] Filter
-- [ ] Sort [^1] *note: after filter*
-- [ ] Store: U
-- […] Entry:
+- [x] Entry:
   - [x] L
   - [x] R
   - [x] C
   - [x] D
   - [x] U
-  - [ ] Fixme: dtstart/due tz (CU)
-  - [ ] Fixme: store read-only (U); [RTFM](https://jsbin.com/jecerofuli/1/)
+- [ ] Sort [^1] *note: after filter*
+- [ ] Store: U
+- […] Sitemap (dot)
+
+## Fixme:
+### Entry
+- [ ] dtstart/due tz (CU)
+- [ ] store read-only[^2] (U)
 
 ## Polish:
 ### List:
@@ -45,7 +48,7 @@
 - iterate over entries w/ kbd
 - col2show, colorder - by names
 - select Entry - invisibnle radio or select>option
-- uuid for route [^2]
+- uuid for route [^3]
 - find: ordered set:
   - OrderedSet < pip ordered-set
   - dict.fromkeys(keywords)
@@ -57,4 +60,5 @@
 - git backend?
 
 [^1]: [list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)
-[^2]: https://github.com/wbolster/flask-uuid
+[^2]: https://jsbin.com/jecerofuli/1/
+[^3]: https://github.com/wbolster/flask-uuid

@@ -1,6 +1,6 @@
 """Model for ToDo entries"""
 # 1. std
-from typing import Iterator, Callable
+from typing import Iterator, Callable, Any, Optional
 import datetime
 # 3. locla
 from pym_core.base.data import Store, StoreList, Entry, EntryList
@@ -48,24 +48,25 @@ class EntryModel(object):
 class EntryProxyModel(object):
     """Sort/filter proxy model"""
     _entry_model: EntryModel
-    _filter_cb: Callable
+    _filter_cb: Optional[Callable[[Entry], bool]]  # return True if entry ok
+    _sorter_cb: Optional[Callable[[Entry], Any]]  # return entry 'weight'
 
     def __init__(self, entries: EntryModel):
         self._entry_model = entries
-        self._filter_cb = self._filt_all
+        self._filter_cb = None  # self._filt_all
+        self._sorter_cb = None
 
-    def setSourceModel(self, m):
-        ...
+    def setSorterCB(self, cb: Callable[[Entry], Any] = None):
+        """Set sorter callback
+        Callback = f(Entry) -> Any
+        """
+        self._sorter_cb = cb
 
-    def setFilterCB(self, cb: Callable = None):
+    def setFilterCB(self, cb: Callable[[Entry], bool] = None):
         """Set filter callback
         Callback = f(Entry) -> bool (True == accept)
         """
         self._filter_cb = cb
-
-    @staticmethod
-    def _filt_all(_: Entry) -> bool:
-        return True
 
     def items(self) -> Iterator[Entry]:
         for entry in self._entry_model.items():
@@ -140,17 +141,35 @@ class TodoEntryProxyModel(EntryProxyModel):
     def __init__(self, entries: TodoEntryModel):
         super().__init__(entries)
 
+    def switchSorter(self, sn: int):
+        """Switch filter
+        :param sn: sorter num (0+)
+        """
+        self.setSorterCB(
+            (None,
+             self.__sort_name,
+             self.__sort_prio_due_name
+             )[sn])
+
+    @staticmethod
+    def __sort_name(entry: Entry) -> str:
+        return entry.vobj.get_Summary()
+
+    @staticmethod
+    def __sort_prio_due_name(_: Entry) -> int:
+        return 0
+
     def switchFilter(self, fn: int):
         """Switch filter
         :param fn: filter num (0+)
         """
-        self.setFilterCB((
-                             self._filt_all,
-                             self.__filt_closed,
-                             self.__filt_opened,
-                             self.__filt_today,
-                             self.__filt_tomorrow
-                         )[fn])
+        self.setFilterCB(
+            (None,
+             self.__filt_closed,
+             self.__filt_opened,
+             self.__filt_today,
+             self.__filt_tomorrow
+             )[fn])
 
     @staticmethod
     def __filt_closed(entry: Entry) -> bool:
@@ -164,18 +183,18 @@ class TodoEntryProxyModel(EntryProxyModel):
     def __filt_today(entry: Entry) -> bool:
         vobj = entry.vobj
         due = vobj.get_Due_as_date()
-        return\
-            (vobj.get_Status() not in _e_closed)\
-            and (due is not None)\
+        return \
+            (vobj.get_Status() not in _e_closed) \
+            and (due is not None) \
             and (due <= _today)
 
     @staticmethod
     def __filt_tomorrow(entry: Entry) -> bool:
         vobj = entry.vobj
         due = vobj.get_Due_as_date()
-        return\
-            (vobj.get_Status() not in _e_closed)\
-            and (due is not None)\
+        return \
+            (vobj.get_Status() not in _e_closed) \
+            and (due is not None) \
             and (due == _tomorrow)
 
 
@@ -194,6 +213,6 @@ class TodoStoreModel(StoreModel):
         #    yield i, s.name
 
 
-todo_entry_model = TodoEntryModel()
-todo_store_model = TodoStoreModel(todo_entry_model)
-todo_proxy_model = TodoEntryProxyModel(todo_entry_model)
+todo_entry_model: TodoEntryModel = TodoEntryModel()
+todo_store_model: TodoStoreModel = TodoStoreModel(todo_entry_model)
+todo_proxy_model: TodoEntryProxyModel = TodoEntryProxyModel(todo_entry_model)
