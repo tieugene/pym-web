@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 #    from wtforms.fields.html5 import IntegerField, DateField, TimeField, DateTimeField, DateTimeLocalField
 # except ImportError:  # wtforms 3.x
 from wtforms import IntegerField, IntegerRangeField, DateField, TimeField, DateTimeLocalField
-from wtforms import BooleanField, StringField, URLField, TextAreaField, SelectField, RadioField
+from wtforms import BooleanField, StringField, URLField, TextAreaField, SelectField, RadioField, FormField
 from wtforms.validators import Optional, DataRequired, NumberRange
 # 3. local
 from pym_core.todo import enums as core_enums
@@ -35,22 +35,23 @@ class StoreForm(FlaskForm):
     active = BooleanField("Active:")
 
 
+class DaTimeForm(FlaskForm):
+    d = DateField('', validators=[Optional()])
+    t = TimeField('', validators=[Optional()])  # FIXME: validate on date
+    msk = BooleanField("MSK:")
+
+
 class TodoEntryForm(FlaskForm):
     store = SelectField("Store:", coerce=int)
     summary = StringField("Summary:", validators=[DataRequired()])
     category = StringField("Category:", validators=[Optional()])
-    class_ = SelectField("Class:", choices=CLASS_LIST, coerce=int, validators=[Optional()])  # FIXME: optional
-    prio_s = RadioField("Prio:", choices=PRIO_LIST, validators=[Optional()])  # FIXME: optional
-    prio_n = IntegerField("#", validators=[Optional(), NumberRange(min=0, max=9)])  # FIXME: optional, limit 0..9
-    dtstart_d = DateField("DTStart.date:", validators=[Optional()])  # FIXME: optional
-    dtstart_t = TimeField("time:", validators=[Optional()])  # FIXME: optional, validate on date
-    dtstart_l = BooleanField("MSK:")
-    due_d = DateField("Due.date:", validators=[Optional()])  # FIXME: optional
-    due_t = TimeField("Due.time:", validators=[Optional()])  # FIXME: optional, validate on date
-    due_l = BooleanField("MSK:")
-    status = SelectField("Status:", choices=STATUS_LIST, coerce=int, validators=[Optional()])  # FIXME: optional
-    progress = IntegerRangeField("Progress", validators=[Optional(), NumberRange(min=0, max=100)])  # FIXME: optional, limit 0..100
-    completed = DateTimeLocalField("Completed", validators=[Optional()])  # FIXME: optional
+    class_ = SelectField("Class:", choices=CLASS_LIST, coerce=int, validators=[Optional()])
+    prio = IntegerField("Prio:", validators=[Optional(), NumberRange(min=0, max=9)])
+    dtstart = FormField(DaTimeForm)
+    due = FormField(DaTimeForm)
+    status = SelectField("Status:", choices=STATUS_LIST, coerce=int, validators=[Optional()])
+    progress = IntegerField("Progress", validators=[Optional(), NumberRange(min=0, max=100)])
+    completed = DateTimeLocalField("Completed", validators=[Optional()])
     location = StringField("Location:", validators=[Optional()])
     url = URLField("URL:", validators=[Optional()])
     desc = TextAreaField("Description:", validators=[Optional()])

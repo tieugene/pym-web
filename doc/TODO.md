@@ -10,20 +10,23 @@
 - […] Entry:
   - [x] L
   - [x] R
-  - [ ] C:
-     - [ ] optional selects (class, status)
-     - [ ] prio: integer + radio (inline)
-     - [ ] date [+ time] chk (2)
-     - [ ] design: layout; highlite mandatory/empty/filled/err
+  - [ ] C: fixes:
+     - [ ] date [+ time] + chk (2)
+     - [ ] layout
   - [ ] D
   - [ ] U
 
 ## Polish:
 ### List:
-- [ ] list.prio.color
-- [ ] list.status.color
-- [ ] list.due.in_word
-- [ ] list.due.color
+- [ ] list:
+  - [ ] prio: color
+  - [ ] status: color
+  - [ ] due: color
+  - [ ] due: in_word
+  - [ ] highlite mandatory/empty/filled/err
+- [ ] entry:
+  - [ ] prio: += range (disabled on int empty or < 1)
+  - [ ] progress: += range (disabled on int empty)
 
 ## Settings:
 - [x] store
