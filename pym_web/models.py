@@ -28,6 +28,10 @@ class EntryModel(object):
     def item_get(self, i: int) -> Entry:  # R
         return self._data.entry_get(i)
 
+    def item_add(self, item: Entry) -> bool:  # C
+        """Add newly created Entry"""
+        return self._data.entry_add(item)
+
 
 class EntryProxyModel(object):
     """Sort/filter proxy model"""

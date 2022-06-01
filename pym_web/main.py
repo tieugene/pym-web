@@ -5,10 +5,10 @@ import ctypes
 from flask import Flask, render_template, redirect, url_for, request
 # 3. local
 from pym_core.base.data import Store
-from pym_core.todo.data import TodoEntry
+from pym_core.todo.data import TodoEntry, TodoVObj
 from pym_core.todo import enums as core_enums
 from settings import Cfg
-from models import todo_store_model, todo_proxy_model
+from models import todo_store_model, todo_entry_model, todo_proxy_model
 import enums
 import forms
 # consts
@@ -181,12 +181,18 @@ def todo_entry_add():
     form = forms.TodoEntryForm()
     form.store.choices = todo_store_model.select()
     if form.validate_on_submit():
-        # print("Due:", type(form.due.data), form.due.data)
-        # todo_store_model.item_add(Store(
-        #    name=form.name.data,
-        #    dpath=form.path.data,
-        #    active=form.active.data))
-        print("Ok")
+        vobj = TodoVObj()
+        if form.to_obj(vobj):
+            store = todo_store_model.item_get(form.store.data)
+            fname = vobj.get_UID() + '.ics'
+            entry = TodoEntry(vobj, store, fname)
+            if entry.save():
+                if not todo_entry_model.item_add(entry):
+                    print(f"Something bad with adding '{vobj.get_Summary()}' to store")  # TODO: flash
+            else:
+                print(f"Error saving '{vobj.get_Summary()}' entry")  # TODO: flash
+        else:
+            del vobj
         return redirect(url_for('todo_board'))
     return render_template('todo_entry_form.html', form=form)
 
