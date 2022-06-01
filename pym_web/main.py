@@ -197,6 +197,25 @@ def todo_entry_add():
     return render_template('todo_entry_form.html', form=form)
 
 
+@app.route('/todo/entry/upd/<int:idx>/', methods=['GET', 'POST'])
+def todo_entry_upd(idx: int):
+    if request.method == 'POST':
+        form = forms.TodoEntryForm(formdata=request.form)
+        form.store.choices = todo_store_model.select()
+        if form.validate():
+            entry = todo_entry_model.item_get(idx)
+            if form.to_obj(entry.vobj):
+                if not todo_entry_model.item_upd(idx):  # or just entry.save()
+                    print(f"Something bad with saving '{entry.vobj.get_Summary()}'")
+            return redirect(url_for('todo_board'))
+    else:
+        form = forms.TodoEntryForm()
+        form.store.choices = todo_store_model.select()
+        entry = todo_entry_model.item_get(idx)
+        form.from_obj(entry.vobj, entry.store)
+    return render_template('todo_entry_form.html', form=form)
+
+
 @app.route('/todo/entry/del/<int:idx>/', methods=['GET'])
 def todo_entry_del(idx: int):
     todo_entry_model.item_del(idx)

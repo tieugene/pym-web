@@ -12,7 +12,9 @@
   - [x] R
   - [x] C
   - [x] D
-  - [ ] U
+  - [x] U
+  - [ ] Fixme: dtstart/due tz (CU)
+  - [ ] Fixme: store read-only (U); [RTFM](https://jsbin.com/jecerofuli/1/)
 
 ## Polish:
 ### List:

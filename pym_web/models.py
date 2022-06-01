@@ -25,20 +25,24 @@ class EntryModel(object):
     def size(self) -> int:
         return self._data.size()
 
-    def item_get(self, i: int) -> Entry:  # R
-        return self._data.entry_get(i)
+    def item_index(self, entry: TodoEntry) -> int:
+        """Find order no of entry in EntryList"""
+        return self._data.entry_index(entry)
 
     def item_add(self, item: Entry) -> bool:  # C
         """Add newly created Entry"""
         return self._data.entry_add(item)
 
+    def item_get(self, i: int) -> Entry:  # R
+        return self._data.entry_get(i)
+
+    def item_upd(self, i: int) -> bool:  # U
+        """Flush entry to source file."""
+        return self._data.entry_get(i).save()
+
     def item_del(self, i: int) -> bool:  # D
         """Delete Entry"""
         return self._data.entry_del(i)
-
-    def item_index(self, entry: TodoEntry) -> int:
-        """Find order no of entry in EntryList"""
-        return self._data.entry_index(entry)
 
 
 class EntryProxyModel(object):
@@ -105,6 +109,9 @@ class StoreModel(object):
     def item_del(self, i: int):
         self._data.store_del(i)
         self.save_self()
+
+    def item_find(self, item: Store) -> int:
+        return self._data.store_find(item)
 
     def load_self(self):
         """Load _data from settings"""
