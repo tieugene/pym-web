@@ -13,15 +13,14 @@
                 <td style="border: none;">
                 {% if field.type != 'FormField' %}
                     <p>{{ field }}</p>
-                    {% for error in field.errors %}
-                        {{ error }}<br/>
-                    {% endfor %}
+                    {% for error in field.errors %} {{ error }}<br/> {% endfor %}
                 {% else %}
                     <table><tr>
                         <td> <p> {{ field.d }} </p> {% for error in field.d.errors %} {{ error }}<br/> {% endfor %} </td>
                         <td> <p> {{ field.t }} </p> {% for error in field.t.errors %} {{ error }}<br/> {% endfor %} </td>
                         <td> {{ field.msk }} </td>
                     </tr></table>
+                    {% for error in field.errors %} {{ error }}<br/> {% endfor %}
                 {% endif %}
                 </td>
             </tr>

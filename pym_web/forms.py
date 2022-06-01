@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from wtforms import Form as BaseForm
 # try:  # wtforms 2.x
 #    from wtforms.fields.html5 import IntegerField, DateField, TimeField, DateTimeField, DateTimeLocalField
 # except ImportError:  # wtforms 3.x
@@ -36,10 +37,10 @@ class StoreForm(FlaskForm):
     active = BooleanField("Active:")
 
 
-class DaTimeForm(FlaskForm):
+class DaTimeForm(BaseForm):  # w/o csrf chk
     d = DateField('', validators=[Optional()])
     t = TimeField('', validators=[Optional()])
-    msk = BooleanField("MSK:")
+    msk = BooleanField("MSK:", validators=[Optional()])
 
     def validate_t(self, field):
         if not self.d.data and field.data:
