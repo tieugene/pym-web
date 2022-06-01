@@ -69,10 +69,15 @@ class EntryProxyModel(object):
         self._filter_cb = cb
 
     def items(self) -> Iterator[Entry]:
-        for entry in self._entry_model.items():
-            if entry.store.active:
-                if not self._filter_cb or self._filter_cb(entry):
-                    yield entry
+        def __filter():
+            for entry in self._entry_model.items():
+                if entry.store.active:
+                    if not self._filter_cb or self._filter_cb(entry):
+                        yield entry
+        if not self._sorter_cb:
+            return __filter()
+        else:
+            return sorted(__filter(), key=self._sorter_cb)
 
 
 class StoreModel(object):
@@ -153,7 +158,7 @@ class TodoEntryProxyModel(EntryProxyModel):
 
     @staticmethod
     def __sort_name(entry: Entry) -> str:
-        return entry.vobj.get_Summary()
+        return entry.vobj.get_Summary().lower()
 
     @staticmethod
     def __sort_prio_due_name(_: Entry) -> int:

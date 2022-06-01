@@ -53,6 +53,7 @@
   - OrderedSet < pip ordered-set
   - dict.fromkeys(keywords)
   - uniq list
+- dark/light theme
 
 ### pym-core:
 - settings

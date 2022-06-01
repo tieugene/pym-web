@@ -39,7 +39,9 @@ app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 @app.context_processor
 def utility_processor():
     def paint_prio(prio: Optional[int]) -> str:
-        """Priority in list"""
+        """Priority in list
+        :todo: <span style="color: ...">...</span>
+        """
         if prio:
             return CHAR_PRIO[prio]
         return ''

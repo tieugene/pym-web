@@ -3,7 +3,6 @@
 from typing import Any
 import os.path
 import json
-# import configparser
 # 3. local
 from pym_core import exc
 import enums
