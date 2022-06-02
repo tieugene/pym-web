@@ -10,7 +10,7 @@
   - [x] C
   - [x] D
   - [x] U
-- [ ] Sort [^1] *note: after filter*
+- [x] Sort[^1]
 - [ ] Store: U
 - […] Sitemap (dot)
 
@@ -27,6 +27,7 @@
   - [ ] due: color
   - [ ] due: in_word
   - [ ] highlite mandatory/empty/filled/err
+  - [ ] async iterator
 - [ ] entry:
   - [ ] prio: += range (disabled on int empty or < 1)
   - [ ] progress: += range (disabled on int empty)

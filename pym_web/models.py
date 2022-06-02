@@ -5,7 +5,7 @@ import datetime
 # 3. locla
 from pym_core.base.data import Store, StoreList, Entry, EntryList
 # from pym_core.todo import enums as core_enums
-from pym_core.todo.data import TodoStore, store_list, entry_list, TodoEntry  # TodoVObj
+from pym_core.todo.data import TodoStore, store_list, entry_list, TodoEntry, TodoVObj  # TodoVObj
 from pym_core.todo import enums as core_enums
 import enums
 from settings import Cfg
@@ -13,6 +13,8 @@ from settings import Cfg
 _e_closed = {core_enums.EStatus.Completed, core_enums.EStatus.Cancelled}
 _today = datetime.date.today()
 _tomorrow = _today + datetime.timedelta(days=1)
+FAR_FUTURE = datetime.date(9999, 12, 31)
+PRIO_RAW2SORT = (3, 0, 0, 0, 0, 1, 2, 2, 2, 2)
 
 
 # Base
@@ -161,8 +163,14 @@ class TodoEntryProxyModel(EntryProxyModel):
         return entry.vobj.get_Summary().lower()
 
     @staticmethod
-    def __sort_prio_due_name(_: Entry) -> int:
-        return 0
+    def __sort_prio_due_name(entry: Entry) -> tuple:
+        """Return 'weight' of entry - (prio:int, due:date, summary:str)"""
+        vobj: TodoVObj = entry.vobj
+        return (
+            PRIO_RAW2SORT[p if (p := vobj.get_Priority()) else 0],
+            (d.date() if isinstance(d, datetime.datetime) else d) if (d := vobj.get_Due()) else FAR_FUTURE,
+            vobj.get_Summary().lower()
+        )
 
     def switchFilter(self, fn: int):
         """Switch filter
