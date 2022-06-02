@@ -7,7 +7,7 @@
 - [x] Entry: LCRUD
 - [x] Sort
 - [x] Store: U
-- […] Sitemap (dot)
+- [x] Sitemap (dot)
 
 ## Fixme:
 ### Store:

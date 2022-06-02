@@ -1,0 +1,33 @@
+digraph pym_web {
+    // page x action
+  rankdir = LR;
+  subgraph cluster_0 {
+      todo_store_add;
+      todo_store_upd;
+      todo_store_del;
+      todo_store_sel;
+      label = "Store";
+  }
+  subgraph cluster_1 {
+      todo_entry_add;
+      todo_entry_upd;
+      todo_entry_del;
+      todo_entry_detail;
+      label = "Entry";
+  }
+  index_html [shape=box];
+  todo_board_html [shape=box];
+  store_form_html [shape=box];
+  todo_entry_form_html [shape=box];
+  todo_entry_detail_html [shape=box];
+
+  index -> index_html -> {todo_board, contacts};
+  todo_board -> todo_board_html;
+  todo_board_html -> {todo_store_add, todo_store_upd, todo_store_del, todo_store_sel};
+  todo_board_html -> todo_set_sort;
+  todo_board_html -> todo_set_filt;
+  todo_board_html -> {todo_entry_add, todo_entry_upd, todo_entry_del, todo_entry_detail};
+  {todo_store_add, todo_store_upd} -> store_form_html -> todo_board;
+  {todo_entry_add, todo_entry_upd} -> todo_entry_form_html -> todo_board;
+  todo_entry_detail -> todo_entry_detail_html;
+}
