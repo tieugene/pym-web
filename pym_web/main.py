@@ -130,6 +130,11 @@ def todo_store_add():
     return render_template('store_form.html', form=form)
 
 
+@app.route('/todo/store/edit/<int:store>/', methods=['GET', 'POST'])
+def todo_store_upd(store: int):
+    return redirect(url_for('todo_board'))
+
+
 @app.route('/todo/store/del/<int:store>/', methods=['GET'])
 def todo_store_del(store: int):
     todo_store_model.item_del(store)

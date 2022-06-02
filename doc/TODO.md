@@ -11,7 +11,7 @@
   - [x] D
   - [x] U
 - [x] Sort[^1]
-- [ ] Store: U
+- […] Store: U
 - […] Sitemap (dot)
 
 ## Fixme:
@@ -32,6 +32,7 @@
   - [ ] prio: += range (disabled on int empty or < 1)
   - [ ] progress: += range (disabled on int empty)
   - [ ] del: confirm ('sure?')
+- cProfile
 
 ## Settings:
 - [x] store
