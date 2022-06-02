@@ -110,6 +110,7 @@ class StoreModel(object):
     def item_add(self, item: Store):
         self._data.store_add(item)
         self.save_self()
+        # FIXME: reload entries
 
     def item_get(self, i: int) -> Store:
         return self._data.store_get(i)
@@ -117,6 +118,7 @@ class StoreModel(object):
     def item_del(self, i: int):
         self._data.store_del(i)
         self.save_self()
+        # FIXME: reload entries
 
     def item_find(self, item: Store) -> int:
         return self._data.store_find(item)

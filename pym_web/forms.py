@@ -1,4 +1,5 @@
 import datetime
+import os.path
 from typing import Union
 
 from flask_wtf import FlaskForm
@@ -46,11 +47,26 @@ def _tz_utc():
 
 
 class StoreForm(FlaskForm):
-    """Form to add new store
-    :todo: check name/path uniqueness; path validity"""
+    """Form to add new store"""
+    idx = IntegerField("#:", validators=[Optional()], render_kw={'readonly': True})
     name = StringField("Name:", validators=[DataRequired()])
     path = StringField("Path:", validators=[DataRequired()])
     active = BooleanField("Active:")
+
+    def __validate(self, key: str, field):
+        for i, store in enumerate(todo_store_model.items()):
+            if (idx := self.idx.data) is not None and i == idx:
+                continue
+            if store.as_dict()[key] == field.data:
+                raise ValidationError(f"'{key}' must be uniq")
+
+    def validate_name(self, field):
+        self.__validate('name', field)
+
+    def validate_path(self, field):
+        self.__validate('path', field)
+        if not os.path.isdir(field.data):
+            raise ValidationError(f"'{field.data}' is not dir or not exists")
 
 
 class DaTimeForm(BaseForm):  # w/o csrf chk

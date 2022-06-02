@@ -119,7 +119,6 @@ def todo_board():
 
 @app.route('/todo/store/add/', methods=['GET', 'POST'])
 def todo_store_add():
-    # Sample: ti.Cloud - /Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Cloud
     form = forms.StoreForm()
     if form.validate_on_submit():
         todo_store_model.item_add(Store(
@@ -130,14 +129,31 @@ def todo_store_add():
     return render_template('store_form.html', form=form)
 
 
-@app.route('/todo/store/edit/<int:store>/', methods=['GET', 'POST'])
-def todo_store_upd(store: int):
-    return redirect(url_for('todo_board'))
+@app.route('/todo/store/edit/<int:idx>/', methods=['GET', 'POST'])
+def todo_store_upd(idx: int):
+    if request.method == 'POST':
+        form = forms.StoreForm(formdata=request.form)
+        if form.validate():
+            store = todo_store_model.item_get(idx)
+            store.name = form.name.data
+            store.dpath = form.path.data
+            store.active = form.active.data
+            todo_store_model.save_self()
+            # FIXME: reload entries
+            return redirect(url_for('todo_board'))
+    else:
+        form = forms.StoreForm()
+        store = todo_store_model.item_get(idx)
+        form.idx.data = idx
+        form.name.data = store.name
+        form.path.data = store.dpath
+        form.active.data = store.active
+    return render_template('store_form.html', form=form)
 
 
-@app.route('/todo/store/del/<int:store>/', methods=['GET'])
-def todo_store_del(store: int):
-    todo_store_model.item_del(store)
+@app.route('/todo/store/del/<int:idx>/', methods=['GET'])
+def todo_store_del(idx: int):
+    todo_store_model.item_del(idx)
     return redirect(url_for('todo_board'))
 
 

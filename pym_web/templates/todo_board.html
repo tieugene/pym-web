@@ -36,8 +36,8 @@
                                 <label for="store-{{ loop.index0 }}"> {{ store.name }} </label>
                             </td>
                             <td>
-                                <a href="{{ url_for('todo_store_upd', store=loop.index0) }}">{% include "img/edit.html" %} </a>
-                                <a href="{{ url_for('todo_store_del', store=loop.index0) }}">{% include "img/trash.html" %} </a>
+                                <a href="{{ url_for('todo_store_upd', idx=loop.index0) }}">{% include "img/edit.html" %} </a>
+                                <a href="{{ url_for('todo_store_del', idx=loop.index0) }}">{% include "img/trash.html" %} </a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -76,6 +76,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                    {% set ns = namespace(ecount=0) %}
                     {% for entry in entries.items() %}
                         <tr> <!-- TODO: prio, status, %, due, summary -->
                             <td style="text-align: center"> {{ paint_prio(entry.vobj.get_Priority())|safe or '' }} </td>
@@ -87,10 +88,11 @@
                                 <label for="entry-{{ loop.index0 }}"> {{ entry.vobj.get_Summary() }} </label>
                             </td>
                         </tr>
+                        {% if loop.last %} {% set ns.ecount = loop.index %} {% endif %}
                     {% endfor %}
                     </tbody>
                     <caption>
-                        Tasks list (loop.counter0)
+                        Tasks list ({{ ns.ecount }})
                         <a href="{{ url_for('todo_entry_add') }}">&oplus;</a>
                     </caption>
                 </table>

@@ -1,26 +1,25 @@
 # TODO
 
 - [x] Settings
-- [x] StoreList CRDL
+- [x] Store: LCRD
 - [x] Store on/off
 - [x] Filter
-- [x] Entry:
-  - [x] L
-  - [x] R
-  - [x] C
-  - [x] D
-  - [x] U
-- [x] Sort[^1]
-- […] Store: U
+- [x] Entry: LCRUD
+- [x] Sort
+- [x] Store: U
 - […] Sitemap (dot)
 
 ## Fixme:
+### Store:
+- [ ] reload entries on store add/edit/del
+
 ### Entry
 - [ ] dtstart/due tz (CU)
-- [ ] store read-only[^2] (U)
+- [ ] store read-only[^1] (U)
 
 ## Polish:
 ### List:
+- [ ] CSS
 - [ ] list:
   - [ ] prio: color
   - [ ] status: color
@@ -32,36 +31,40 @@
   - [ ] prio: += range (disabled on int empty or < 1)
   - [ ] progress: += range (disabled on int empty)
   - [ ] del: confirm ('sure?')
-- cProfile
-
-## Settings:
-- [x] store
-- [x] json
-- [x] stores
-- [x] filter
-- [ ] sort
-- [ ] col2show: set[str]
-- [ ] colorder: OrderedSet[str]
-- [ ] showLeftPane
-- [ ] showDetails
 
 ## Issues:
 - TodoList: select whole of row
 - iterate over entries w/ kbd
 - col2show, colorder - by names
 - select Entry - invisibnle radio or select>option
-- uuid for route [^3]
+- uuid for route [^2]
 - find: ordered set:
   - OrderedSet < pip ordered-set
   - dict.fromkeys(keywords)
   - uniq list
 - dark/light theme
+- cProfile
+
+### cgf:
+- [ ] col2show: set[str]
+- [ ] colorder: OrderedSet[str]
+- [ ] showLeftPane
+- [ ] showDetails
 
 ### pym-core:
 - settings
 - sync (builtin)
 - git backend?
 
-[^1]: [list.sort, sorted()](https://docs.python.org/3/howto/sorting.html)
-[^2]: https://jsbin.com/jecerofuli/1/
-[^3]: https://github.com/wbolster/flask-uuid
+## Stores:
+
+Name  | Path
+------|-----
+Cloud | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Cloud`
+Fedora| `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Fedora`
+Job   | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Job`
+Tasks | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.tasks`
+PR    | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/pr/owncl`
+
+[^1]: https://jsbin.com/jecerofuli/1/
+[^2]: https://github.com/wbolster/flask-uuid

@@ -19,6 +19,9 @@
             </tr>
 		{% endfor %}
         </table>
-        <p><input id="submit" name="submit" type="submit" value="Go"></p>
+        <p>
+            <input id="submit" name="submit" type="submit" value="Save">
+            <a href="{{ url_for('todo_board') }}"> <input type="button" value="Cancel"> </a>
+        </p>
     </form>
 {% endblock %}
