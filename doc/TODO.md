@@ -42,7 +42,7 @@
   - OrderedSet < pip ordered-set
   - dict.fromkeys(keywords)
   - uniq list
-- dark/light theme
+- dark/light theme[^3]
 - cProfile
 
 ### cgf:
@@ -68,3 +68,4 @@ PR    | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/pr/owncl`
 
 [^1]: https://jsbin.com/jecerofuli/1/
 [^2]: https://github.com/wbolster/flask-uuid
+[^3]: https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/

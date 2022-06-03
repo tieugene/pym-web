@@ -2,11 +2,18 @@
 <html lang="ru">
 <head>
 	<meta charset="utf-8"/>
-	<title>PYM-Web: {% block title %}{% endblock %}</title>
+	<title>PYM-Web: {% block title %}{% endblock %} </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
     {%  block head %}{% endblock %}
 </head>
 <body>
+    <header>
+        <a href="{{ url_for('index') }}"> {% include "img/home.html" %} </a>
+        <a href="{{ url_for('todo_board') }}"> {% include "img/tasks.html" %} </a>
+        <a href="{{ url_for('contacts') }}"> {% include "img/contacts.html" %} </a>
+        <a href="{{ url_for('info') }}"> {% include "img/info.html" %} </a>
+        <span style="font-size: large; font-weight: bold"> {% block header %}{% endblock %} </span>
+    </header>
 	{% with messages = get_flashed_messages() %}
 	{% if messages %}
 		<ul>
@@ -16,20 +23,10 @@
 		</ul>
 		{% endif %}
 	{% endwith %}
-    <p>
-        <a href="{{ url_for('index') }}">
-            <img class="svg button" alt="Home" src="{{ url_for('static', filename='svg/home.svg') }}"/>
-        </a>
-        <a href="{{ url_for('todo_board') }}">
-            <img class="svg button" alt="TODO" src="{{ url_for('static', filename='svg/tasks.svg') }}"/>
-        </a>
-        <a href="{{ url_for('contacts') }}">
-            <img class="svg button" alt="Contacts" src="{{ url_for('static', filename='svg/address-book-o.svg') }}"/>
-        </a>
-        <a href="{{ url_for('info') }}">
-            <img class="svg button" alt="Info" src="{{ url_for('static', filename='svg/info.svg') }}"/>
-        </a>
-    </p>
+    <main>
     {% block body %}{% endblock %}
+    </main>
+    <footer>{% block footer %}{% endblock %}</footer>
+{% block postsript %}{% endblock %}
 </body>
 </html>
