@@ -95,7 +95,6 @@
             </tr>
             </thead>
             <tbody>
-            {% set ns = namespace(ecount=0) %}
             {% for entry in entries.items() %}
                 <tr> <!-- TODO: prio, status, %, due, summary -->
                     <td style="text-align: center"> {{ paint_prio(entry.vobj.get_Priority())|safe or '' }} </td>
@@ -107,13 +106,11 @@
                         <label for="entry-{{ loop.index0 }}"> {{ entry.vobj.get_Summary() }} </label>
                     </td>
                 </tr>
-                {% if loop.last %} {% set ns.ecount = loop.index %} {% endif %}
+                {% if loop.last %} {% set gns.statusbar = loop.index|string + ' tasks' %} {% endif %}
+            {% else %}
+                {% set gns.statusbar = 'No tasks' %}
             {% endfor %}
             </tbody>
-            <caption>
-                Tasks list ({{ ns.ecount }})
-                <a href="{{ url_for('todo_entry_add') }}">&oplus;</a>
-            </caption>
         </table>
     </div>
     <div class="inline" id="details"> <!-- right pane -->

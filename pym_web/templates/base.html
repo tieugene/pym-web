@@ -12,6 +12,7 @@
     {%  block head %}{% endblock %}
 </head>
 <body>
+    {% set gns = namespace(statusbar='') %}
     <header>
         <nav>
             <a href="{{ url_for('index') }}"> {% include "img/home.html" %} </a>
@@ -33,7 +34,7 @@
     <main>
     {% block body %}{% endblock %}
     </main>
-    <footer>{% block footer %}{% endblock %}</footer>
+    <footer> {{ gns.statusbar }} </footer>
 {% block postsript %}{% endblock %}
 </body>
 </html>
