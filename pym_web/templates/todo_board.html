@@ -1,13 +1,6 @@
 {% extends "base.html" %}
 {% block title %} TODO {% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabs.css') }}"/>
-    <style>
-        input[type="radio"][name="entry"]:checked + label {
-            border: 1px solid red;
-            background-color: yellow;
-        }
-    </style>
     <script>
         function loadEntryDetails() {  // powered by https://www.delftstack.com/howto/javascript/load-html-file-javascript/
             v = document.querySelector('input[name="entry"]:checked').value;
@@ -16,92 +9,116 @@
             .then(text=> document.getElementById('details').innerHTML = text);
         }
     </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabs.css') }}"/>
+    <style>
+        div.inline {
+            display: inline-block;
+            vertical-align: top;
+            /*border: 1px solid gainsboro;*/
+        }
+        table#entrylist {
+            border: 1px solid grey;
+            border-collapse: collapse;
+        }
+        table#entrylist > thead > tr > th {
+            border-bottom: 3px double black;
+        }
+        table#entrylist > thead > tr > th:not(:last-of-type) {
+            border-right: 1px dotted black;
+        }
+        table#entrylist > tbody > tr:not(:last-of-type) > td {
+            border-bottom: 1px dotted grey;
+        }
+        table#entrylist > tbody > tr > td:not(:last-of-type) {
+            border-right: 1px dotted grey;
+        }
+        input[type="radio"][name="entry"]:checked + label {
+            border: 1px solid red;
+            background-color: yellow;
+        }
+    </style>
 {% endblock %}
 {% block header %} ToDo {% endblock %}
 {% block body %}
-    <table>
-        <tr>
-            <td style="vertical-align: top"> <!-- Left pane -->
-                <fieldset>
-                    <legend>
-                        Stores
-                        <a href="{{ url_for('todo_store_add') }}">&oplus;</a>
-                    </legend>
-                    <form action="{{ url_for('todo_store_sel') }}" method="post" novalidate="">
-                    <table style="border: none">
-                    {% for store in stores.items() %}
-                        <tr>
-                            <td>
-                                <input type="checkbox" name="store" id="store-{{ loop.index0 }}" value="{{ loop.index0 }}" onchange="submit();" {% if store.active %} checked {% endif %}>
-                                <label for="store-{{ loop.index0 }}"> {{ store.name }} </label>
-                            </td>
-                            <td>
-                                <a href="{{ url_for('todo_store_upd', idx=loop.index0) }}">{% include "img/edit.html" %} </a>
-                                <a href="{{ url_for('todo_store_del', idx=loop.index0) }}">{% include "img/trash.html" %} </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </table>
-                    </form>
-                </fieldset>
-                <fieldset>
-                    <legend> Sort </legend>
-                    <form action="{{ url_for('todo_set_sort') }}" method="post" novalidate="">
-                    <!-- id="fname-value", type="radio", name="fname", value="int" [checked] -->
-                    <input type="radio" name="sort" id="sort-0" value="0" onchange="submit();"> <label for="sort-0"> As is </label> <br>
-                    <input type="radio" name="sort" id="sort-1" value="1" onchange="submit();"> <label for="sort-1"> Name </label> <br>
-                    <input type="radio" name="sort" id="sort-2" value="2" onchange="submit();"> <label for="sort-2"> !&rarr;Due&rarr;Name </label> <br>
-                    </form>
-                </fieldset>
-                <fieldset>
-                    <legend> Filter </legend>
-                    <form action="{{ url_for('todo_set_filt') }}" method="post" novalidate="">
-                    <input type="radio" name="filt" id="filt-0" value="0" onchange="submit();"> <label for="filt-0"> All </label> <br>
-                    <input type="radio" name="filt" id="filt-1" value="1" onchange="submit();"> <label for="filt-1"> Closed </label> <br>
-                    <input type="radio" name="filt" id="filt-2" value="2" onchange="submit();"> <label for="filt-2"> Opened </label> <br>
-                    <input type="radio" name="filt" id="filt-3" value="3" onchange="submit();"> <label for="filt-3"> Today </label> <br>
-                    <input type="radio" name="filt" id="filt-4" value="4" onchange="submit();"> <label for="filt-4"> Tomorrow </label> <br>
-                    </form>
-                </fieldset>
-            </td>
-            <td style="vertical-align: top"> <!-- mid pane -->
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Prio</th>
-                        <th>Status</th>
-                        <th>%</th>
-                        <th>Due</th>
-                        <th>Summary</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% set ns = namespace(ecount=0) %}
-                    {% for entry in entries.items() %}
-                        <tr> <!-- TODO: prio, status, %, due, summary -->
-                            <td style="text-align: center"> {{ paint_prio(entry.vobj.get_Priority())|safe or '' }} </td>
-                            <td style="text-align: center"> {{ paint_status(entry.vobj.get_Status())|safe or '' }} </td>
-                            <td style="text-align: right"> {{ entry.vobj.get_Progress() or '' }} </td>
-                            <td> {{ entry.vobj.get_Due() or '' }} </td>
-                            <td>
-                                <input type="radio" name="entry" id="entry-{{ loop.index0 }}" value="{{ entry.id }}" onchange="loadEntryDetails();" style="display: none">
-                                <label for="entry-{{ loop.index0 }}"> {{ entry.vobj.get_Summary() }} </label>
-                            </td>
-                        </tr>
-                        {% if loop.last %} {% set ns.ecount = loop.index %} {% endif %}
-                    {% endfor %}
-                    </tbody>
-                    <caption>
-                        Tasks list ({{ ns.ecount }})
-                        <a href="{{ url_for('todo_entry_add') }}">&oplus;</a>
-                    </caption>
-                </table>
-            </td>
-            <td style="vertical-align: top" id="details"> <!-- right pane -->
-                details wiil be here
-            </td>
-        </tr>
-    </table>
+    <div class="inline"> <!-- Left pane -->
+        <fieldset>
+            <legend>
+                Stores
+                <a href="{{ url_for('todo_store_add') }}">&oplus;</a>
+            </legend>
+            <form action="{{ url_for('todo_store_sel') }}" method="post" novalidate="">
+            <table style="border: none; border-collapse: collapse;">
+            {% for store in stores.items() %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="store" id="store-{{ loop.index0 }}" value="{{ loop.index0 }}" onchange="submit();" {% if store.active %} checked {% endif %}>
+                        <label for="store-{{ loop.index0 }}"> {{ store.name }} </label>
+                    </td>
+                    <td>
+                        <a href="{{ url_for('todo_store_upd', idx=loop.index0) }}">{% include "img/edit.html" %} </a>
+                        <a href="{{ url_for('todo_store_del', idx=loop.index0) }}">{% include "img/trash.html" %} </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend> Sort </legend>
+            <form action="{{ url_for('todo_set_sort') }}" method="post" novalidate="">
+            <!-- id="fname-value", type="radio", name="fname", value="int" [checked] -->
+            <input type="radio" name="sort" id="sort-0" value="0" onchange="submit();"> <label for="sort-0"> As is </label> <br>
+            <input type="radio" name="sort" id="sort-1" value="1" onchange="submit();"> <label for="sort-1"> Name </label> <br>
+            <input type="radio" name="sort" id="sort-2" value="2" onchange="submit();"> <label for="sort-2"> !&rarr;Due&rarr;Name </label> <br>
+            </form>
+        </fieldset>
+        <fieldset>
+            <legend> Filter </legend>
+            <form action="{{ url_for('todo_set_filt') }}" method="post" novalidate="">
+            <input type="radio" name="filt" id="filt-0" value="0" onchange="submit();"> <label for="filt-0"> All </label> <br>
+            <input type="radio" name="filt" id="filt-1" value="1" onchange="submit();"> <label for="filt-1"> Closed </label> <br>
+            <input type="radio" name="filt" id="filt-2" value="2" onchange="submit();"> <label for="filt-2"> Opened </label> <br>
+            <input type="radio" name="filt" id="filt-3" value="3" onchange="submit();"> <label for="filt-3"> Today </label> <br>
+            <input type="radio" name="filt" id="filt-4" value="4" onchange="submit();"> <label for="filt-4"> Tomorrow </label> <br>
+            </form>
+        </fieldset>
+    </div>
+    <div class="inline"> <!-- mid pane -->
+        <table id="entrylist">
+            <thead>
+            <tr>
+                <th title="Priority">!</th>
+                <th title="Status">S</th>
+                <th>%</th>
+                <th>Due</th>
+                <th>Summary</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% set ns = namespace(ecount=0) %}
+            {% for entry in entries.items() %}
+                <tr> <!-- TODO: prio, status, %, due, summary -->
+                    <td style="text-align: center"> {{ paint_prio(entry.vobj.get_Priority())|safe or '' }} </td>
+                    <td style="text-align: center"> {{ paint_status(entry.vobj.get_Status())|safe or '' }} </td>
+                    <td style="text-align: right"> {{ entry.vobj.get_Progress() or '' }} </td>
+                    <td> {{ entry.vobj.get_Due() or '' }} </td>
+                    <td>
+                        <input type="radio" name="entry" id="entry-{{ loop.index0 }}" value="{{ entry.id }}" onchange="loadEntryDetails();" style="display: none">
+                        <label for="entry-{{ loop.index0 }}"> {{ entry.vobj.get_Summary() }} </label>
+                    </td>
+                </tr>
+                {% if loop.last %} {% set ns.ecount = loop.index %} {% endif %}
+            {% endfor %}
+            </tbody>
+            <caption>
+                Tasks list ({{ ns.ecount }})
+                <a href="{{ url_for('todo_entry_add') }}">&oplus;</a>
+            </caption>
+        </table>
+    </div>
+    <div class="inline" id="details"> <!-- right pane -->
+        details wiil be here
+    </div>
 {% endblock %}
 {% block postsript %}
     <script>

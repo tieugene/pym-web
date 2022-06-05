@@ -4,14 +4,21 @@
 	<meta charset="utf-8"/>
 	<title>PYM-Web: {% block title %}{% endblock %} </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
+    <style>
+        header > nav {
+            display: inline-block;
+        }
+    </style>
     {%  block head %}{% endblock %}
 </head>
 <body>
     <header>
-        <a href="{{ url_for('index') }}"> {% include "img/home.html" %} </a>
-        <a href="{{ url_for('todo_board') }}"> {% include "img/tasks.html" %} </a>
-        <a href="{{ url_for('contacts') }}"> {% include "img/contacts.html" %} </a>
-        <a href="{{ url_for('info') }}"> {% include "img/info.html" %} </a>
+        <nav>
+            <a href="{{ url_for('index') }}"> {% include "img/home.html" %} </a>
+            <a href="{{ url_for('todo_board') }}"> {% include "img/tasks.html" %} </a>
+            <a href="{{ url_for('contacts') }}"> {% include "img/contacts.html" %} </a>
+            <a href="{{ url_for('info') }}"> {% include "img/info.html" %} </a>
+        </nav>
         <span style="font-size: large; font-weight: bold"> {% block header %}{% endblock %} </span>
     </header>
 	{% with messages = get_flashed_messages() %}

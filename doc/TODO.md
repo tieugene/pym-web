@@ -19,7 +19,7 @@
 
 ## Polish:
 ### List:
-- [ ] CSS
+- [ ] [CSS](https://idg.net.ua/blog/uchebnik-css)
 - [ ] list:
   - [ ] prio: color
   - [ ] status: color
@@ -31,6 +31,10 @@
   - [ ] prio: += range (disabled on int empty or < 1)
   - [ ] progress: += range (disabled on int empty)
   - [ ] del: confirm ('sure?')
+
+#### html:
+- <placeholder>
+- icons: svg sprite, font
 
 ## Issues:
 - TodoList: select whole of row

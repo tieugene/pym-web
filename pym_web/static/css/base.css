@@ -2,8 +2,22 @@ html, body {
     height: 100vh;
 }
 
+header {
+    background-color: gainsboro;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    margin: 0;
+}
+
 footer {
     background-color: #F8F8F8;
+}
+
+.mono {
+    font-family: monospace;
 }
 
 a {
@@ -39,10 +53,6 @@ a.button {
     padding: 1px 2px;
 }
 
-button > img {
-    margin: 0;
-}
-
 img.svg {
     padding: 3px 5px;
     width: 16px;
@@ -52,32 +62,8 @@ img.svg32 {
     width: 32px;
 }
 
-table.thick {
-    border-collapse: collapse;
-}
-
-table.thick th, td {
-    border: 1px solid grey;
-    padding: 0 0.2em;
-}
-
-td {
-    min-width: 0;
-}
-
-td.trunc {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-td.mini {
-    width: 1px;
-    white-space: nowrap;
-}
-
-td.right {
-    text-align: right;
+button > img {
+    margin: 0;
 }
 
 a > img {
@@ -87,8 +73,4 @@ a > img {
 
 a:hover > img {
     background-color: greenyellow;
-}
-
-.mono {
-    font-family: monospace;
 }
