@@ -13,7 +13,19 @@ import enums
 import forms
 
 # consts
-CHAR_PRIO = ' !↑↑↑~↓↓↓⥥'
+# CHAR_PRIO = ' !↑↑↑~↓↓↓⥥'
+CHAR_PRIO = (
+    (None, None),  # stub
+    ('!', 'prio_max'),
+    ('&uarr;', 'prio_high'),
+    ('&uarr;', 'prio_high'),
+    ('&uarr;', 'prio_high'),
+    ('~', 'prio_norm'),
+    ('&darr;', 'prio_low'),
+    ('&darr;', 'prio_low'),
+    ('&darr;', 'prio_low'),
+    ('&dArr;', 'prio_min'),
+)
 CHAR_STATUS = {
     core_enums.EStatus.NeedsAction: '?',
     core_enums.EStatus.InProcess: '…',
@@ -43,7 +55,7 @@ def utility_processor():
         :todo: <span style="color: ...">...</span>
         """
         if prio:
-            return CHAR_PRIO[prio]
+            return f"<span class=\"{CHAR_PRIO[prio][1]}\"> {CHAR_PRIO[prio][0]} </span>"
         return ''
 
     def paint_status(status: Optional[core_enums.EStatus]) -> str:

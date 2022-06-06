@@ -11,11 +11,13 @@
     </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/tabs.css') }}"/>
     <style>
+        /* panels */
         div.inline {
             display: inline-block;
             vertical-align: top;
             /*border: 1px solid gainsboro;*/
         }
+        /* entry list at all */
         table#entrylist {
             border: 1px solid grey;
             border-collapse: collapse;
@@ -32,6 +34,23 @@
         table#entrylist > tbody > tr > td:not(:last-of-type) {
             border-right: 1px dotted grey;
         }
+        /* priority */
+        span.prio_max {
+            color: red;
+        }
+        span.prio_high {
+            color: orange;
+        }
+        span.prio_norm {
+            color: green;
+        }
+        span.prio_low {
+            color: blue;
+        }
+        span.prio_min {
+            color: darkblue;
+        }
+        /* entry selected */
         input[type="radio"][name="entry"]:checked + label {
             border: 1px solid red;
             background-color: yellow;
