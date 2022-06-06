@@ -27,10 +27,10 @@ CHAR_PRIO = (
     ('&dArr;', 'prio_min'),
 )
 CHAR_STATUS = {
-    core_enums.EStatus.NeedsAction: '?',
-    core_enums.EStatus.InProcess: '…',
-    core_enums.EStatus.Completed: '✓',
-    core_enums.EStatus.Cancelled: '✗'
+    core_enums.EStatus.NeedsAction: ('?', 'stat_doit'),
+    core_enums.EStatus.InProcess: ('&hellip;', 'stat_doing'),
+    core_enums.EStatus.Completed: ('&check;', 'stat_ok'),
+    core_enums.EStatus.Cancelled: ('&cross;', 'stat_drop')
 }
 STR_STATUS = {
     core_enums.EStatus.NeedsAction: 'Need action',
@@ -51,17 +51,17 @@ app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
 @app.context_processor
 def utility_processor():
     def paint_prio(prio: Optional[int]) -> str:
-        """Priority in list
-        :todo: <span style="color: ...">...</span>
-        """
+        """Priority in list"""
         if prio:
-            return f"<span class=\"{CHAR_PRIO[prio][1]}\"> {CHAR_PRIO[prio][0]} </span>"
+            pair = CHAR_PRIO[prio]
+            return f"<span class=\"{pair[1]}\"> {pair[0]} </span>"
         return ''
 
     def paint_status(status: Optional[core_enums.EStatus]) -> str:
         """Status in list"""
         if status:
-            return CHAR_STATUS[status.value]
+            pair = CHAR_STATUS[status.value]
+            return f"<span class=\"{pair[1]}\"> {pair[0]} </span>"
         return ''
 
     def print_status(status: Optional[core_enums.EStatus]) -> str:

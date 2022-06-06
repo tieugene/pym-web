@@ -42,13 +42,26 @@
             color: orange;
         }
         span.prio_norm {
-            color: green;
+            color: limegreen;
         }
         span.prio_low {
             color: blue;
         }
         span.prio_min {
-            color: darkblue;
+            color: grey;
+        }
+        /* status */
+        span.stat_doit {
+            color: blue;
+        }
+        span.stat_doing {
+            color: grey;
+        }
+        span.stat_ok {
+            color: limegreen;
+        }
+        span.stat_drop {
+            color: red;
         }
         /* entry selected */
         input[type="radio"][name="entry"]:checked + label {
@@ -107,7 +120,7 @@
             <thead>
             <tr>
                 <th title="Priority">!</th>
-                <th title="Status">S</th>
+                <th title="Status">s</th>
                 <th>%</th>
                 <th>Due</th>
                 <th>Summary</th>
