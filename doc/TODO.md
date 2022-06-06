@@ -1,51 +1,13 @@
 # TODO
 
-- [x] Settings
-- [x] Store: LCRD
-- [x] Store on/off
-- [x] Filter
-- [x] Entry: LCRUD
-- [x] Sort
-- [x] Store: U
-- [x] Sitemap (dot)
-
-## Fixme:
-### Store:
-- [ ] reload entries on store add/edit/del
-
-### Entry
-- [ ] dtstart/due tz (CU)
-- [ ] store read-only[^1] (U)
-
-## Polish:
-### List:
-- [ ] [CSS](https://idg.net.ua/blog/uchebnik-css)
-- [ ] list:
-  - [ ] prio: color
-  - [ ] status: color
-  - [ ] due: color
-  - [ ] due: in_word
-  - [ ] highlite mandatory/empty/filled/err
-  - [ ] async iterator
-- [ ] entry:
-  - [ ] prio: += range (disabled on int empty or < 1)
-  - [ ] progress: += range (disabled on int empty)
-  - [ ] del: confirm ('sure?')
-
-#### html:
-- <placeholder>
-- icons: svg sprite, font
+- CSS[^1]
 
 ## Issues:
-- TodoList: select whole of row
+- lists: async iterator
 - iterate over entries w/ kbd
-- col2show, colorder - by names
-- select Entry - invisibnle radio or select>option
+- col2show (by names)
+- colorder (by names)
 - uuid for route [^2]
-- find: ordered set:
-  - OrderedSet < pip ordered-set
-  - dict.fromkeys(keywords)
-  - uniq list
 - dark/light theme[^3]
 - cProfile
 
@@ -55,21 +17,21 @@
 - [ ] showLeftPane
 - [ ] showDetails
 
-### pym-core:
+## pym-core:
 - settings
 - sync (builtin)
 - git backend?
 
-## Stores:
+## Notes
+- ordered set:
+  - OrderedSet < pip ordered-set
+  - dict.fromkeys(keywords)
+  - uniq list
 
-Name  | Path
-------|-----
-Cloud | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Cloud`
-Fedora| `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Fedora`
-Job   | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.Job`
-Tasks | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/eap/ti.tasks`
-PR    | `/Users/eugene/VCS/my/GIT/pyqtpim/_data/pr/owncl`
+### html:
+- &lt;placeholder&gt;
+- icons: svg sprite, font
 
-[^1]: https://jsbin.com/jecerofuli/1/
+[^1]: [RTFM](https://idg.net.ua/blog/uchebnik-css)
 [^2]: https://github.com/wbolster/flask-uuid
 [^3]: https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/
